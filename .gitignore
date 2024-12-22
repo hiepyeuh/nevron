@@ -3,6 +3,7 @@
 .DS_Store
 .env
 .ruff_cache/
+qdrant_storage/
 
 # ====== Default gitignore config ======
 
