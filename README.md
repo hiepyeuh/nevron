@@ -1,19 +1,5 @@
-# Template for python repositories.
-[![Lint](https://github.com/axioma-ai-labs/python-template/actions/workflows/ci-lint.yml/badge.svg)](https://github.com/axioma-ai-labs/python-template/actions/workflows/ci-lint.yml)
-
-Create the `qdrant_storage` folder for running the Qdrant docker container.
-
-```bash
-mkdir qdrant_storage
-```
-
-Run the Qdrant docker container. (First pull the image with `docker pull qdrant/qdrant`)
-
-```bash
-docker run -p 6333:6333 -p 6334:6334 \
-    -v $(pwd)/qdrant_storage:/qdrant/storage:z \
-    qdrant/qdrant
-```
+# Autonomous Agent
+[![CI](https://github.com/axioma-ai-labs/aa-core/actions/workflows/ci-lint.yml/badge.svg)](https://github.com/axioma-ai-labs/aa-core/actions/workflows/ci-lint.yml)
 
 ## Table of Contents
 
@@ -23,14 +9,8 @@ docker run -p 6333:6333 -p 6334:6334 \
 
 ## Overview
 
-This project is a template for Python repositories. It includes a Makefile with commands for 
-formatting, linting, and installing dependencies. It also includes a pre-configured Github Actions 
-workflow for CI/CD.
-
-Let the following note be in your project-specific Readme file:
-
-> [!NOTE]
-> This project uses the [python-template](https://github.com/axioma-ai-labs/python-template)
+This is a simple autonomous agent that uses Q-learning to make decisions, integrates with 
+Telegram and Twitter, and uses Qdrant for vector storage as a memory module.
 
 ## Features
 
@@ -111,5 +91,27 @@ pipenv install --dev
 You can use the provided `.env.example` file to setup the environment variables. 
 
 ```
-cp .env.example .env
+cp .env.dev .env
+```
+
+### Run the Agent
+
+Create the `qdrant_storage` folder for running the Qdrant docker container.
+
+```bash
+mkdir qdrant_storage
+```
+
+Run the Qdrant docker container. (First pull the image with `docker pull qdrant/qdrant`)
+
+```bash
+docker run -p 6333:6333 -p 6334:6334 \
+    -v $(pwd)/qdrant_storage:/qdrant/storage:z \
+    qdrant/qdrant
+```
+
+Run the agent:
+
+```bash
+pipenv run python -m src.main
 ```
