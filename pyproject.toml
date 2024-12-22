@@ -3,21 +3,21 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "python-template"
+name = "aa-core"
 version = "0.1.0"
 authors = []
-description = "Template for python repositories"
+description = "Autonomous Agent Core"
 readme = "README.md"
-keywords = ["template", "python"]
+keywords = ["agent", "ai"]
 requires-python = ">=3.12"
 classifiers = [
   "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
+  "License :: GNU General Public License v3.0",
   "Operating System :: OS Independent",
 ]
 
 [project.urls]
-Homepage = "https://github.com/axioma-ai-labs/python-template"
+Homepage = "https://github.com/axioma-ai-labs/aa-core"
 Documentation = ""
 
 [tool.mypy]
@@ -29,3 +29,6 @@ ignore_missing_imports = true
 
 # Runs type checking on all files, even those without type hints.
 check_untyped_defs = true
+
+[tool.ruff]
+line-length = 120
