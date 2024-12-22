@@ -1,6 +1,20 @@
 # Template for python repositories.
 [![Lint](https://github.com/axioma-ai-labs/python-template/actions/workflows/ci-lint.yml/badge.svg)](https://github.com/axioma-ai-labs/python-template/actions/workflows/ci-lint.yml)
 
+Create the `qdrant_storage` folder for running the Qdrant docker container.
+
+```bash
+mkdir qdrant_storage
+```
+
+Run the Qdrant docker container. (First pull the image with `docker pull qdrant/qdrant`)
+
+```bash
+docker run -p 6333:6333 -p 6334:6334 \
+    -v $(pwd)/qdrant_storage:/qdrant/storage:z \
+    qdrant/qdrant
+```
+
 ## Table of Contents
 
 - [Overview](#overview)

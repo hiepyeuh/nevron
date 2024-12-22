@@ -1,0 +1,20 @@
+{
+    "default": [
+        0.0,
+        -0.1,
+        -0.1,
+        0.0
+    ],
+    "just_posted_to_twitter": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+    ],
+    "just_posted_to_telegram": [
+        0.0,
+        -0.1,
+        0.0,
+        0.0
+    ]
+}

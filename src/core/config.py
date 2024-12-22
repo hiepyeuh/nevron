@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import List
+
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -44,7 +45,7 @@ class Settings(BaseSettings):
     PERPLEXITY_ENDPOINT: str = ""
 
     # === Telegram settings ===
-    
+
     #: Telegram bot token
     TELEGRAM_BOT_TOKEN: str = ""
 
@@ -58,7 +59,7 @@ class Settings(BaseSettings):
     TELEGRAM_REVIEWER_CHAT_IDS: List[str] = []
 
     # === Twitter settings ===
-    
+
     #: Twitter API key
     TWITTER_API_KEY: str = ""
 
@@ -70,7 +71,6 @@ class Settings(BaseSettings):
 
     #: Twitter access token secret
     TWITTER_ACCESS_TOKEN_SECRET: str = ""
-
 
     # ==== Validators ====
 

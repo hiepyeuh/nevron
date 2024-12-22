@@ -1,9 +1,12 @@
 import asyncio
-from src.agent import Agent
+
 from loguru import logger
+
+from src.agent import Agent
 
 # Configure logging
 logger.add("logs/debug.log", rotation="1 MB", retention="10 days", level="DEBUG")
+
 
 async def async_main():
     """
@@ -22,6 +25,7 @@ async def async_main():
     finally:
         logger.info("Agent runtime has stopped.")
 
+
 def main():
     """
     Main entry point that runs the async runtime
@@ -32,6 +36,7 @@ def main():
         logger.info("Agent runtime interrupted by user. Shutting down gracefully...")
     except Exception as e:
         logger.critical(f"Fatal error in the main runtime: {e}")
+
 
 if __name__ == "__main__":
     main()

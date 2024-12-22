@@ -18,6 +18,7 @@ tweepy = "*"
 pillow = "*"
 lxml-html-clean = "*"
 requests-html = "*"
+qdrant-client = {extras = ["http"], version = "*"}
 
 [dev-packages]
 mypy = "*"

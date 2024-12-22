@@ -19,7 +19,6 @@ class OAIError(AgentBaseError):
     pass
 
 
-
 class TelegramPostError(AgentBaseError):
     """Custom exception for Telegram posting errors."""
 

@@ -1,12 +1,14 @@
-from loguru import logger
 import asyncio
-from typing import Optional, Dict, Any
-from src.tools import twitter, tg
-import numpy as np
-import httpx
-import random
+from typing import Any, Dict, List, Optional
 
+import httpx
+import numpy as np
+from loguru import logger
+
+from src.memory_module import MemoryModule
 from src.planning_module import PlanningModule
+from src.tools import tg, twitter
+
 
 class Agent:
     """
@@ -20,19 +22,29 @@ class Agent:
     """
 
     def __init__(self):
-        # 1. Perception, 2. Memory (omitted for brevity in this snippet)
+        # 1. Initialize Perception, Execution, and other modules
         self.perception_module = None
-        self.memory_module = None
+        self.memory_module = MemoryModule(
+            collection_name="agent_memory",
+            host="localhost",  # or use your actual IP / domain
+            port=6333,
+            vector_size=768,
+        )
+        self.feedback_module = None
 
-        # 3. Initialize the planning module with some possible actions
-        self.planning_module = PlanningModule(actions=[
-            "check_news",         # Action that triggers _perceive to see if any new data arrived
-            "post_to_telegram",   # Action to post something to telegram
-            "post_to_twitter",    # Action to post something to twitter
-        ])
+        # 2. Initialize Planning Module with persistent Q-table
+        self.planning_module = PlanningModule(
+            actions=[
+                "check_news",  # Check if there are new signals
+                "post_to_telegram",  # Post updates to Telegram
+                "post_to_twitter",  # Post updates to Twitter
+                "idle",  # Do nothing (resting state)
+            ],
+            q_table_path="persistent_q_table.json",  # Persistent Q-table file
+        )
 
-        # 4. Execution Module: existing code to manage tools
-        self.execution_tools = {
+        # 3. Execution Tools
+        self.execution_tools: Dict[str, Dict[str, Any]] = {
             "telegram": {
                 "post_summary": tg.post_summary_to_telegram,
                 "post_admin": tg.post_to_admin,
@@ -41,24 +53,51 @@ class Agent:
             "twitter": {
                 "post_thread": twitter.post_twitter_thread,
                 "upload_media": twitter.upload_media_v1,
-            }
+            },
         }
 
-        # 5. Feedback Module (omitted for brevity)
-        self.feedback_module = None
+        # 4. Current State
+        self.state = "default"  # Start in a default state
 
-        # Simple agent state
-        self.state = "default"
+    def _update_state(self, last_action: str):
+        """
+        Updates the agent's state based on the last action.
+
+        Args:
+            last_action (str): The action that was just performed.
+        """
+        if last_action == "check_news":
+            self.state = "waiting_for_news"
+        elif last_action == "post_to_telegram":
+            self.state = "just_posted_to_telegram"
+        elif last_action == "post_to_twitter":
+            self.state = "just_posted_to_twitter"
+        elif last_action == "idle":
+            self.state = "default"  # Reset to default
+        else:
+            self.state = "default"  # Fallback
+        logger.info(f"Agent state updated to: {self.state}")
+
+    def _update_planning_policy(self, state: str, action: str, reward: float, next_state: str):
+        """
+        Update the Q-learning table in the PlanningModule.
+        """
+        self.planning_module.update_q_table(state, action, reward, next_state)
 
     async def _execute_action(self, action: str, data: Dict[str, Any]) -> Optional[Any]:
         logger.info(f"Executing action '{action}' with data: {data}")
         try:
             tool, method = action.split(".")
-            if tool not in self.execution_tools or method not in self.execution_tools[tool]:
-                logger.error(f"Invalid action '{action}'. Tool or method not found.")
+            if tool not in self.execution_tools:
+                logger.error(f"Invalid tool '{tool}'")
+                return None
+                
+            tool_methods = self.execution_tools[tool]
+            if method not in tool_methods:
+                logger.error(f"Invalid method '{method}' for tool '{tool}'")
                 return None
 
-            func = self.execution_tools[tool][method]
+            func = tool_methods[method]
             result = await func(**data)
             logger.info(f"Action '{action}' executed successfully")
             return result
@@ -91,39 +130,41 @@ class Agent:
             # simplistic random reward or custom logic
             return float(np.random.choice([1.0, 0.0, -1.0]))
 
-    def _update_planning_policy(self, state: str, action: str, reward: float, next_state: str) -> None:
-        """
-        Pass the parameters along to our Q-learning planning module.
-        """
-        self.planning_module.update_q_table(state, action, reward, next_state)
-
     async def _perform_planned_action(self, action_name: str):
         """
-        Convert high-level action_name (like 'check_news') into actual code calls.
+        Executes the planned action and updates the state.
+
+        Args:
+            action_name (str): The name of the planned action.
         """
         outcome = None
-
         if action_name == "check_news":
-            # We can call _perceive to fetch from API
+            # Fetch news and transition to the appropriate state
             news = await self._perceive()
-            # We'll consider the outcome "good" if we got something
             outcome = news if news else None
 
         elif action_name == "post_to_telegram":
-            # Example: post a summary
+            # Post a summary to Telegram
             outcome = await self.execute_telegram_action(
                 "post_summary", summary_html="<b>Autonomous post</b>"
             )
 
         elif action_name == "post_to_twitter":
-            # Example: post a short thread
+            # Post a thread to Twitter
             outcome = await self.execute_twitter_action(
                 "post_thread", tweets={"tweet1": "Autonomous tweet!", "tweet2": "Thread part 2"}
             )
-        
-        # If you had more actions, handle them here.
+
+        elif action_name == "idle":
+            # Do nothing and just wait
+            logger.info("Agent is idling.")
+            outcome = "idle"
+
+        # Update the state after performing the action
+        self._update_state(action_name)
+
         return outcome
-    
+
     async def _fetch_signal(self) -> dict:
         """
         Fetch a signal from the API endpoint.
@@ -143,21 +184,22 @@ class Agent:
                     logger.info(f"Signal fetched: {data}")
                     return data
                 else:
-                    logger.error(f"Failed to fetch signal. Status code: {response.status}")
+                    logger.error(f"Failed to fetch signal. Status code: {response.status_code}")
                     return {"status": "error"}
         except Exception as e:
             logger.error(f"Error fetching signal from API: {e}")
             return {"status": "error"}
 
     async def _perceive(self) -> Optional[str]:
-        """
-        Perception Module (Slightly updated to allow direct calls)
-        - This is the same function you had, just returning the news string if available.
-        """
         signal = await self._fetch_signal()
         if signal.get("status") == "new_data" and "news" in signal:
-            logger.info(f"Actionable signal received: {signal['news']}")
-            return signal["news"]
+            news = signal["news"]
+            logger.info(f"Actionable signal received: {news}")
+
+            # Store the news in memory
+            self.memory_module.store(news, metadata={"type": "news"})
+
+            return news
         elif signal.get("status") == "no_data":
             logger.info("No actionable signal detected.")
             return None
@@ -171,25 +213,23 @@ class Agent:
 
     async def start_runtime_loop(self) -> None:
         logger.info("Starting the autonomous agent runtime loop...")
-        
+
         while True:
             try:
                 # 1. Choose an action
                 #    You might treat the entire system as one "state", or define states.
                 current_state = self.state
                 action_name = self.planning_module.get_action(current_state)
-                
+
                 # 2. Perform that action
                 outcome = await self._perform_planned_action(action_name)
 
                 # 3. Collect feedback
                 reward = self._collect_feedback(action_name, outcome)
-
-                # 4. Update Q-table
-                next_state = "default"  # or change if you track multiple states
+                next_state = self.state  # After performing, we’re in the updated state
                 self._update_planning_policy(current_state, action_name, reward, next_state)
 
-                # 5. Sleep or yield
+                # 4. Sleep or yield
                 await asyncio.sleep(5)
 
             except KeyboardInterrupt:
@@ -199,23 +239,7 @@ class Agent:
                 logger.error(f"Error in runtime loop: {e}")
                 break
 
-    def _store_in_memory(self, key: str, value: str) -> None:
-        """
-        Memory Module:
-        - Store the perceived data into Qdrant or other memory storage
-        - Possibly do embeddings, vector indexing, or other transformations
-        """
-        # Example placeholder:
-        # self.memory_module.store(key, value)
-        pass
-
-    def _get_environment_inputs(self) -> list:
-        """
-        Placeholder method to fetch new data from the environment.
-        For example:
-          - Poll Twitter for new mentions
-          - Check an RSS feed for news
-          - Observe internal triggers
-        Return format: [("twitter", tweet_data), ("news", news_data), ...]
-        """
-        return []
+    def recall_recent_news(self, query: str = "latest news") -> List[str]:
+        search_results = self.memory_module.search(query, top_k=3)
+        contents = [res["content"] for res in search_results]
+        return contents
