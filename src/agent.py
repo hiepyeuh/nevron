@@ -4,7 +4,9 @@ from typing import Optional, Dict, Any
 from src.tools import twitter, tg
 import numpy as np
 import httpx
+import random
 
+from src.planning_module import PlanningModule
 
 class Agent:
     """
@@ -15,19 +17,21 @@ class Agent:
       4. Execution Module
       5. Feedback Module
       6. Autonomy Engine
-
-    The methods below are placeholders for you to fill in with actual implementations.
     """
 
     def __init__(self):
-        """
-        Initialize the agent with all required modules and execution tools
-        """
+        # 1. Perception, 2. Memory (omitted for brevity in this snippet)
         self.perception_module = None
         self.memory_module = None
-        self.planning_module = None 
-        
-        # Initialize execution tools
+
+        # 3. Initialize the planning module with some possible actions
+        self.planning_module = PlanningModule(actions=[
+            "check_news",         # Action that triggers _perceive to see if any new data arrived
+            "post_to_telegram",   # Action to post something to telegram
+            "post_to_twitter",    # Action to post something to twitter
+        ])
+
+        # 4. Execution Module: existing code to manage tools
         self.execution_tools = {
             "telegram": {
                 "post_summary": tg.post_summary_to_telegram,
@@ -39,68 +43,87 @@ class Agent:
                 "upload_media": twitter.upload_media_v1,
             }
         }
-        
+
+        # 5. Feedback Module (omitted for brevity)
         self.feedback_module = None
 
+        # Simple agent state
+        self.state = "default"
+
     async def _execute_action(self, action: str, data: Dict[str, Any]) -> Optional[Any]:
-        """
-        Execute actions using the configured tools.
-        
-        Args:
-            action (str): Action identifier in format "tool.method" (e.g. "telegram.post_summary")
-            data (Dict[str, Any]): Parameters for the action
-            
-        Returns:
-            Optional[Any]: Result of the action execution
-        """
         logger.info(f"Executing action '{action}' with data: {data}")
-        
         try:
-            # Parse tool and method from action string
             tool, method = action.split(".")
-            
             if tool not in self.execution_tools or method not in self.execution_tools[tool]:
                 logger.error(f"Invalid action '{action}'. Tool or method not found.")
                 return None
-                
-            # Get the function to execute
+
             func = self.execution_tools[tool][method]
-            
-            # Execute the function
             result = await func(**data)
             logger.info(f"Action '{action}' executed successfully")
             return result
-            
         except Exception as e:
             logger.error(f"Error executing action '{action}': {e}")
             return None
 
     async def execute_telegram_action(self, method: str, **kwargs) -> Optional[Any]:
-        """
-        Execute Telegram-specific actions
-        
-        Args:
-            method (str): Telegram method to execute
-            **kwargs: Arguments for the method
-            
-        Returns:
-            Optional[Any]: Result of the telegram action
-        """
         return await self._execute_action(f"telegram.{method}", kwargs)
 
     async def execute_twitter_action(self, method: str, **kwargs) -> Optional[Any]:
-        """
-        Execute Twitter-specific actions
-        
-        Args:
-            method (str): Twitter method to execute
-            **kwargs: Arguments for the method
-            
-        Returns:
-            Optional[Any]: Result of the twitter action
-        """
         return await self._execute_action(f"twitter.{method}", kwargs)
 
+    # --------------------------------------------------------------
+    # RL-based PLANNING & EXECUTION
+    # --------------------------------------------------------------
+
+    def _collect_feedback(self, action: str, outcome) -> float:
+        """
+        Feedback Module:
+        Here you define how to measure success/failure (reward).
+        For example, if "post_to_telegram" fails, negative reward,
+        if "check_news" found something, positive reward, etc.
+        """
+        logger.info(f"Collecting feedback for action '{action}'")
+        if outcome is None:
+            # e.g., big negative reward
+            return -1.0
+        else:
+            # simplistic random reward or custom logic
+            return float(np.random.choice([1.0, 0.0, -1.0]))
+
+    def _update_planning_policy(self, state: str, action: str, reward: float, next_state: str) -> None:
+        """
+        Pass the parameters along to our Q-learning planning module.
+        """
+        self.planning_module.update_q_table(state, action, reward, next_state)
+
+    async def _perform_planned_action(self, action_name: str):
+        """
+        Convert high-level action_name (like 'check_news') into actual code calls.
+        """
+        outcome = None
+
+        if action_name == "check_news":
+            # We can call _perceive to fetch from API
+            news = await self._perceive()
+            # We'll consider the outcome "good" if we got something
+            outcome = news if news else None
+
+        elif action_name == "post_to_telegram":
+            # Example: post a summary
+            outcome = await self.execute_telegram_action(
+                "post_summary", summary_html="<b>Autonomous post</b>"
+            )
+
+        elif action_name == "post_to_twitter":
+            # Example: post a short thread
+            outcome = await self.execute_twitter_action(
+                "post_thread", tweets={"tweet1": "Autonomous tweet!", "tweet2": "Thread part 2"}
+            )
+        
+        # If you had more actions, handle them here.
+        return outcome
+    
     async def _fetch_signal(self) -> dict:
         """
         Fetch a signal from the API endpoint.
@@ -128,15 +151,10 @@ class Agent:
 
     async def _perceive(self) -> Optional[str]:
         """
-        Perception Module:
-        - Calls an API to fetch a signal.
-        - Processes the signal to determine if there's actionable data.
-
-        Returns:
-            Optional[str]: The actionable news string if available, or None otherwise.
+        Perception Module (Slightly updated to allow direct calls)
+        - This is the same function you had, just returning the news string if available.
         """
         signal = await self._fetch_signal()
-
         if signal.get("status") == "new_data" and "news" in signal:
             logger.info(f"Actionable signal received: {signal['news']}")
             return signal["news"]
@@ -147,25 +165,31 @@ class Agent:
             logger.warning("Received an unknown signal format or an error occurred.")
             return None
 
-    # Updated runtime loop to include Perception Module
-    async def start_runtime_loop(self) -> None:
-        """Start the agent's autonomous runtime loop."""
-        logger.info("Starting the autonomous agent runtime loop...")
+    # --------------------------------------------------------------
+    # MAIN LOOP
+    # --------------------------------------------------------------
 
+    async def start_runtime_loop(self) -> None:
+        logger.info("Starting the autonomous agent runtime loop...")
+        
         while True:
             try:
-                # Step 1: Perception - Fetch and process signals
-                actionable_data = await self._perceive()
+                # 1. Choose an action
+                #    You might treat the entire system as one "state", or define states.
+                current_state = self.state
+                action_name = self.planning_module.get_action(current_state)
+                
+                # 2. Perform that action
+                outcome = await self._perform_planned_action(action_name)
 
-                if actionable_data:
-                    # Step 2: Trigger a reaction (e.g., post to Telegram or Twitter)
-                    # Example: Post to Telegram with the news data
-                    await self.execute_telegram_action(
-                        "post_summary",
-                        summary_html=f"<b>Breaking News:</b> {actionable_data}"
-                    )
+                # 3. Collect feedback
+                reward = self._collect_feedback(action_name, outcome)
 
-                # Sleep or yield to prevent a tight loop
+                # 4. Update Q-table
+                next_state = "default"  # or change if you track multiple states
+                self._update_planning_policy(current_state, action_name, reward, next_state)
+
+                # 5. Sleep or yield
                 await asyncio.sleep(5)
 
             except KeyboardInterrupt:
@@ -175,36 +199,6 @@ class Agent:
                 logger.error(f"Error in runtime loop: {e}")
                 break
 
-    def _autonomy_engine(self, inputs) -> None:
-        """
-        The main orchestration method that runs:
-          1. Perception  
-          2. Memory update/retrieval  
-          3. Planning (which action to take)  
-          4. Execution of that action  
-          5. Feedback collection  
-          6. Update Q-table or RL policy  
-        """
-        # For each piece of input, run the chain of modules
-        for source, data in inputs:
-            # 1. Perception
-            perceived_data = self._perceive(source, data)
-
-            # 2. Memory
-            self._store_in_memory(source, perceived_data)
-
-            # 3. Planning
-            action = self._plan_action(perceived_data)
-
-            # 4. Execution
-            outcome = self._execute_action(action, perceived_data)
-
-            # 5. Feedback
-            reward = self._collect_feedback(action, outcome)
-
-            # 6. Update Q-learning or RL policy
-            self._update_planning_policy(perceived_data, action, reward)
-
     def _store_in_memory(self, key: str, value: str) -> None:
         """
         Memory Module:
@@ -213,37 +207,6 @@ class Agent:
         """
         # Example placeholder:
         # self.memory_module.store(key, value)
-        pass
-
-    def _plan_action(self, state: str) -> int:
-        """
-        Planning Module (Q-learning or other RL):
-        - Based on the perceived state, choose which action to take next
-        - Return the action ID or descriptor
-        """
-        # Example placeholder:
-        # action = self.planning_module.choose_action(state)
-        return np.random.randint(0, 3)  # e.g., random action
-
-    def _collect_feedback(self, action: int, outcome) -> float:
-        """
-        Feedback Module:
-        - Gather feedback (user rating, success/failure, etc.)
-        - Return a reward signal for reinforcement learning
-        """
-        # Example placeholder:
-        # feedback = self.feedback_module.get_feedback(action, outcome)
-        # return feedback
-        logger.info(f"Collecting feedback for action {action}")
-        reward = np.random.choice([1.0, -1.0])  # random positive/negative
-        return reward
-
-    def _update_planning_policy(self, state: str, action: int, reward: float) -> None:
-        """
-        Update the Q-table or policy with the new reward signal
-        """
-        # Example placeholder:
-        # self.planning_module.update_q_table(state, action, reward)
         pass
 
     def _get_environment_inputs(self) -> list:
