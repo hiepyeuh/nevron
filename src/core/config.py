@@ -1,16 +1,9 @@
-from enum import Enum
 from typing import List
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
-class Environment(Enum):
-    """The environment of the application."""
-
-    PRODUCTION = "production"
-    DEVELOPMENT = "development"
-    CI = "ci"
+from src.core.defs import Environment
 
 
 class Settings(BaseSettings):

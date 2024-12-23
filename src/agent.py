@@ -29,9 +29,9 @@ class Agent:
         #: Initialize Planning Module with persistent Q-table
         self.planning_module = PlanningModule(
             actions=[
-                "check_signal",  # Check if there are new signals
-                "research_news",  # Analyze news and post to Twitter
                 "idle",  # Do nothing (resting state)
+                "analyze_signal",  # Check if there are new signals
+                "research_news",  # Analyze news and post to Twitter
             ],
             q_table_path=settings.PERSISTENT_Q_TABLE_PATH,  # Persistent Q-table file
         )
@@ -48,8 +48,8 @@ class Agent:
 
     def _update_state(self, last_action: str):
         """Updates the agent's state based on the last action."""
-        if last_action == "check_signal":
-            self.state = "waiting_for_signal"
+        if last_action == "analyze_signal":
+            self.state = "just_analyzed_signal"
         elif last_action == "research_news":
             self.state = "just_analyzed_news"
         elif last_action == "idle":
@@ -79,7 +79,7 @@ class Agent:
             logger.info("Agent is idling.")
             outcome = "idle"
 
-        elif action_name == "check_signal":
+        elif action_name == "analyze_signal":
             news = await analyze_signal()
             if news:
                 logger.info("News perceived.")
