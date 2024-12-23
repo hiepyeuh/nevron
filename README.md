@@ -88,7 +88,7 @@ pipenv install --dev
 
 #### Setup Environment Variables
 
-You can use the provided `.env.example` file to setup the environment variables. 
+You can use the provided `.env.dev` file to setup the environment variables. 
 
 ```
 cp .env.dev .env
@@ -111,6 +111,12 @@ docker run -p 6333:6333 -p 6334:6334 \
 ```
 
 Run the agent:
+
+```bash
+make run
+```
+
+Alternatively, you can run the agent manually:
 
 ```bash
 pipenv run python -m src.main
