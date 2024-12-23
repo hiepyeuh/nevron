@@ -20,7 +20,7 @@ class MemoryModule:
         collection_name: str = "agent_memory",
         host: str = "localhost",
         port: int = 6333,
-        vector_size: int = 768,
+        vector_size: int = 1536,
     ):
         """
         Initializes the connection to Qdrant and ensures that
@@ -115,5 +115,5 @@ def get_memory_module(openai_client: AsyncOpenAI = get_oai_client()) -> MemoryMo
         collection_name="agent_memory",
         host="localhost",
         port=6333,
-        vector_size=768,
+        vector_size=1536,
     )
