@@ -2,6 +2,8 @@ import json
 import random
 from pathlib import Path
 
+from loguru import logger
+
 
 class PlanningModule:
     """
@@ -20,7 +22,13 @@ class PlanningModule:
             q_table_path (str): Path to the file where the Q-table is saved.
         """
         if actions is None:
-            actions = ["check_news", "post_to_telegram", "post_to_twitter"]
+            actions = [
+                "check_news",
+                "post_to_telegram",
+                "post_to_twitter",
+                "idle",
+                "analyze_news",
+            ]
 
         self.actions = actions
         self.alpha = alpha  # Learning rate
@@ -42,10 +50,10 @@ class PlanningModule:
             try:
                 with open(self.q_table_path, "r") as file:
                     q_table = json.load(file)
-                    print(f"Loaded Q-table from {self.q_table_path}")
+                    logger.info(f"Loaded Q-table from {self.q_table_path}")
                     return q_table
             except Exception as e:
-                print(f"Failed to load Q-table: {e}")
+                logger.error(f"Failed to load Q-table: {e}")
         return {}
 
     def _save_q_table(self) -> None:
@@ -55,9 +63,9 @@ class PlanningModule:
         try:
             with open(self.q_table_path, "w") as file:
                 json.dump(self.q_table, file, indent=4)
-                print(f"Q-table saved to {self.q_table_path}")
+                logger.info(f"Q-table saved to {self.q_table_path}")
         except Exception as e:
-            print(f"Failed to save Q-table: {e}")
+            logger.error(f"Failed to save Q-table: {e}")
 
     def get_action(self, state):
         """

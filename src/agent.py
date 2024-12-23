@@ -26,7 +26,7 @@ class Agent:
         self.perception_module = None
         self.memory_module = MemoryModule(
             collection_name="agent_memory",
-            host="localhost",  # or use your actual IP / domain
+            host="localhost",  # use the actual IP / domain
             port=6333,
             vector_size=768,
         )
@@ -58,6 +58,15 @@ class Agent:
 
         # 4. Current State
         self.state = "default"  # Start in a default state
+
+    async def _call_openai_api(self, prompt: str) -> str:
+        """
+        Placeholder for an OpenAI or other LLM call to analyze text.
+        Replace this with a real API call in your production code.
+        """
+        logger.info(f"Calling OpenAI with prompt:\n{prompt}")
+        # Simulate an AI-generated analysis
+        return f"AI Analysis of the news: This news is about '{prompt}' (mock)."
 
     def _update_state(self, last_action: str):
         """
@@ -91,7 +100,7 @@ class Agent:
             if tool not in self.execution_tools:
                 logger.error(f"Invalid tool '{tool}'")
                 return None
-                
+
             tool_methods = self.execution_tools[tool]
             if method not in tool_methods:
                 logger.error(f"Invalid method '{method}' for tool '{tool}'")
@@ -110,6 +119,30 @@ class Agent:
 
     async def execute_twitter_action(self, method: str, **kwargs) -> Optional[Any]:
         return await self._execute_action(f"twitter.{method}", kwargs)
+
+    async def analyze_news_workflow(self, news: str) -> Optional[str]:
+        """
+        1) Analyze the news with an LLM (placeholder)
+        2) Prepare a tweet
+        3) Publish tweet on Twitter
+        """
+        try:
+            # Step 1: Analyze the news
+            analysis_prompt = f"Please analyze the following news:\n{news}"
+            analysis = await self._call_openai_api(analysis_prompt)
+
+            # Step 2: Prepare tweet (simple example)
+            # You might incorporate the analysis into the tweet
+            tweet_text = f"Breaking News:\n{analysis}\n#StayInformed"
+
+            # Step 3: Publish tweet on Twitter
+            logger.info(f"Preparing to post tweet:\n{tweet_text}")
+            result = await self.execute_twitter_action("post_thread", tweets={"tweet1": tweet_text})
+            logger.info("Tweet posted successfully!")
+            return result
+        except Exception as e:
+            logger.error(f"Error in analyze_news_workflow: {e}")
+            return None
 
     # --------------------------------------------------------------
     # RL-based PLANNING & EXECUTION
@@ -159,6 +192,23 @@ class Agent:
             # Do nothing and just wait
             logger.info("Agent is idling.")
             outcome = "idle"
+
+        # --- NEW WORKFLOW ---
+        elif action_name == "analyze_news":
+            # For demonstration, you might fetch the last perceived news or do a new perception:
+            # If you want to re-use the last news from memory, you could do so:
+            recent_news = "No recent news found"
+            # Example: try retrieving the last stored news from memory
+            # (this is optional logic if you want to pull from memory)
+            retrieved = self.memory_module.search("news", top_k=1)
+            if retrieved:
+                recent_news = retrieved[0]["content"]
+
+            outcome = await self.analyze_news_workflow(recent_news)
+
+        else:
+            logger.warning(f"Unknown action: {action_name}")
+            outcome = None
 
         # Update the state after performing the action
         self._update_state(action_name)

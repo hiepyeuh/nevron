@@ -2,28 +2,17 @@ import uuid
 from typing import Any, Dict, List, Optional
 
 from loguru import logger
+from openai import OpenAI
 from qdrant_client import QdrantClient
 from qdrant_client.http import models as qdrant_models
 from qdrant_client.http.models import Distance
 
+openai_client = OpenAI()
 
-# Placeholder embedding function
-# In real usage, call an API (e.g., OpenAI) or local model (HuggingFace) to get embeddings.
+
 def my_embedding_function(text: str) -> List[float]:
-    # Return a fixed dummy vector for demonstration,
-    # e.g., [0.1, 0.2, 0.3, ...] 768 dims for typical LLM embeddings
-    return [0.1] * 768  # <-- Just a placeholder
-
-
-# TODO: Implement OpenAI embedding function
-# import openai
-
-# def my_embedding_function(text: str) -> List[float]:
-#     response = openai.Embedding.create(
-#         input=text,
-#         engine="text-embedding-ada-002"
-#     )
-#     return response["data"][0]["embedding"]
+    response = openai_client.embeddings.create(input=text, model="text-embedding-3-small")
+    return response.data[0].embedding
 
 
 class MemoryModule:
