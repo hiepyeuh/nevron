@@ -4,6 +4,7 @@
 .env
 .ruff_cache/
 qdrant_storage/
+persistent_q_table.json
 
 # ====== Default gitignore config ======
 
