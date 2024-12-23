@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     #: Project name
     PROJECT_NAME: str = "autonomous-agent"
 
+    #: Path to the persistent Q-table file
+    PERSISTENT_Q_TABLE_PATH: str = "persistent_q_table.json"
+
     # === OpenAI settings ===
 
     #: OpenAI API key

@@ -4,30 +4,36 @@ from pathlib import Path
 
 from loguru import logger
 
+from src.core.config import settings
+
 
 class PlanningModule:
-    """
-    A simple Q-learning planning module for high-level autonomous decisions.
-    """
+    """A simple Q-learning planning module for high-level autonomous decisions."""
 
+    #: TODO: Implement alpha, gamma, epsilon as settings
     def __init__(
-        self, actions=None, alpha=0.1, gamma=0.95, epsilon=0.1, q_table_path="q_table.json"
+        self,
+        actions=None,
+        alpha=0.1,
+        gamma=0.95,
+        epsilon=0.1,
+        q_table_path=settings.PERSISTENT_Q_TABLE_PATH,
     ):
         """
         Args:
-            actions (List[str]): A list of strings representing possible actions (e.g., ['check_news', 'post_tweet', 'research']).
+            actions (List[str]): A list of strings representing possible actions
+            (e.g., ['idle', 'analyze_signal', 'research_news']).
             alpha (float): Learning rate for Q-learning.
             gamma (float): Discount factor for future rewards.
             epsilon (float): Probability for exploration in epsilon-greedy policy.
             q_table_path (str): Path to the file where the Q-table is saved.
         """
+        #: TODO: Implement actions as settings or definition! Update it also in the agent.py
         if actions is None:
             actions = [
-                "check_news",
-                "post_to_telegram",
-                "post_to_twitter",
                 "idle",
-                "analyze_news",
+                "analyze_signal",
+                "research_news",
             ]
 
         self.actions = actions
@@ -67,7 +73,7 @@ class PlanningModule:
         except Exception as e:
             logger.error(f"Failed to save Q-table: {e}")
 
-    def get_action(self, state):
+    def get_action(self, state: str) -> str:
         """
         Select an action using epsilon-greedy policy.
 
