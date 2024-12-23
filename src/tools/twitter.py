@@ -8,7 +8,7 @@ from PIL import Image
 from requests_html import HTMLSession
 
 from src.core.config import settings
-from src.core.exceptions import TwitterPostError
+from src.core.exceptions import TwitterError as TwitterPostError
 
 
 def get_twitter_conn_v1() -> tweepy.API:

@@ -9,6 +9,7 @@ help:
 	@echo "  deps            Install all dependencies"
 	@echo "  format          Format source code"
 	@echo "  lint            Run lint checks"
+	@echo "  run             Run the agent"
 
 .PHONY: deps
 deps:
@@ -44,6 +45,10 @@ lint-isort:
 .PHONY: lint-mypy
 lint-mypy:
 	pipenv run mypy --check-untyped-defs $(DIRS_PYTHON)
+
+.PHONY: run
+run:
+	pipenv run python -m src.main
 
 # .PHONY: jupyternotebook
 # jupyternotebook:

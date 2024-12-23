@@ -7,8 +7,8 @@ class AgentBaseError(Exception):
     pass
 
 
-class DatabaseError(AgentBaseError):
-    """Custom exception for database errors."""
+class MemoryError(AgentBaseError):
+    """Custom exception for memory errors."""
 
     pass
 
@@ -19,13 +19,13 @@ class OAIError(AgentBaseError):
     pass
 
 
-class TelegramPostError(AgentBaseError):
+class TelegramError(AgentBaseError):
     """Custom exception for Telegram posting errors."""
 
     pass
 
 
-class TwitterPostError(AgentBaseError):
+class TwitterError(AgentBaseError):
     """Exception raised when posting to Twitter fails."""
 
     pass
