@@ -49,7 +49,7 @@ class Agent:
     def _update_state(self, last_action: str):
         """Updates the agent's state based on the last action."""
         if last_action == "analyze_signal":
-            self.state = "waiting_for_signal"
+            self.state = "just_analyzed_signal"
         elif last_action == "research_news":
             self.state = "just_analyzed_news"
         elif last_action == "idle":

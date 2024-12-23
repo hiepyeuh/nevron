@@ -84,6 +84,7 @@ class PlanningModule:
         # Ensure there's a Q-value array for this state
         if state not in self.q_table:
             self.q_table[state] = [0.0] * len(self.actions)
+            logger.error(f"State {state} not found in Q-table. Initialized with zeros.")
 
         # Epsilon-greedy selection
         if random.random() < self.epsilon:
