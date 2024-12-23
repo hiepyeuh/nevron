@@ -27,7 +27,6 @@ class Agent:
         self.memory_module = get_memory_module()
 
         #: Initialize Planning Module with persistent Q-table
-        #: TODO: Implement actions as settings or definition! Update this in the planning_module.py as well
         self.planning_module = PlanningModule(
             actions=[
                 "check_signal",  # Check if there are new signals

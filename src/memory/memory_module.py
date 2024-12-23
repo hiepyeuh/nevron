@@ -13,7 +13,6 @@ from src.llm.oai_client import get_oai_client
 
 
 class MemoryModule:
-    #: TODO: Implement setup of host/port with settings and special config
     def __init__(
         self,
         openai_client: AsyncOpenAI = get_oai_client(),

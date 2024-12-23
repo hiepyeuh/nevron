@@ -12,7 +12,6 @@ class FeedbackModule:
         # Internal store for feedback history
         self.feedback_history: List[Dict[str, Any]] = []
 
-    #: TODO: Implement advanced feedback logic
     def collect_feedback(self, action: str, outcome: Optional[Any]) -> float:
         """
         Collects feedback for a given action and its outcome.

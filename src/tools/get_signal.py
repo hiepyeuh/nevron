@@ -2,7 +2,6 @@ import httpx
 from loguru import logger
 
 
-#: TODO: Find some real API call to fetch a signal
 async def fetch_signal() -> dict:
     """
     Fetch a signal from the API endpoint.

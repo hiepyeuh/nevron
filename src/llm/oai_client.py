@@ -4,7 +4,6 @@ from loguru import logger
 from openai import AsyncOpenAI
 
 
-#: TODO: Implement actual OpenAI or other LLM call
 async def call_openai_api(prompt: str) -> str:
     """
     Placeholder for a real OpenAI or other LLM call.
