@@ -5,7 +5,6 @@ from loguru import logger
 from src.tools.get_signal import fetch_signal
 
 
-#: TODO: Implement actual analysis of the signal
 async def analyze_signal() -> Optional[str]:
     """
     1) Fetch the signal

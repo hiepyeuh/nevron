@@ -7,7 +7,6 @@ from src.memory.memory_module import MemoryModule, get_memory_module
 from src.tools.twitter import post_twitter_thread
 
 
-#: TODO: Implement actual analysis of the news
 async def analyze_news_workflow(
     news: str, memory: MemoryModule = get_memory_module()
 ) -> Optional[str]:

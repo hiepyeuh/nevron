@@ -10,7 +10,6 @@ from src.core.config import settings
 class PlanningModule:
     """A simple Q-learning planning module for high-level autonomous decisions."""
 
-    #: TODO: Implement alpha, gamma, epsilon as settings
     def __init__(
         self,
         actions=None,
@@ -28,7 +27,6 @@ class PlanningModule:
             epsilon (float): Probability for exploration in epsilon-greedy policy.
             q_table_path (str): Path to the file where the Q-table is saved.
         """
-        #: TODO: Implement actions as settings or definition! Update it also in the agent.py
         if actions is None:
             actions = [
                 "idle",
