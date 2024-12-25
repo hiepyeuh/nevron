@@ -19,11 +19,18 @@ pillow = "*"
 lxml-html-clean = "*"
 requests-html = "*"
 qdrant-client = {extras = ["http"], version = "*"}
+<<<<<<< HEAD
 mkdocs = "*"
 mkdocs-material = "*"
 mkdocs-macros-plugin = "*"
 mkdocs-awesome-pages-plugin = "*"
+<<<<<<< HEAD
 pytest-cov = "*"
+=======
+=======
+anthropic = "*"
+>>>>>>> 219b760 (Add LLms)
+>>>>>>> 8a38f40 (Add LLms)
 
 [dev-packages]
 mypy = "*"

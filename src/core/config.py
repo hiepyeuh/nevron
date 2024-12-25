@@ -35,14 +35,35 @@ class Settings(BaseSettings):
     MEMORY_PORT: int = 6333
     MEMORY_VECTOR_SIZE: int = 1536
 
-    # === OpenAI settings ===
+    # === Agent Personality settings ===
 
-    #: OpenAI API key
+    #: The agent's personality description
+    AGENT_PERSONALITY: str = (
+        "You are a financial analyst. You are given a news article and some context. You need "
+        "to analyze the news and provide insights. You are very naive and trustful. You are "
+        "very optimistic and believe in the future of humanity. You are very naive and trustful. "
+        "You are very optimistic and believe in the future of humanity. You are very naive and "
+        "trustful. You are very optimistic and believe in the future of humanity. You are very "
+        "naive and trustful. You are very optimistic and believe in the future of humanity. You "
+        "are very naive and trustful. You are very optimistic and believe in the future of "
+        "humanity."
+    )
+
+    #: The agent's goal
+    AGENT_GOAL: str = "Your goal is to analyze the news and provide insights."
+
+    # === LLMs settings ===
+
+    LLM_PROVIDER: str = "openai"  # or "anthropic"
+
+    #: Anthropic
+    ANTHROPIC_API_KEY: str = ""
+    ANTHROPIC_MODEL: str = "claude-2"
+
+    #: OpenAI
     OPENAI_API_KEY: str = ""
-
-    #: OpenAI model
     OPENAI_MODEL: str = "gpt-4o-mini"
-
+    OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
     # === Perplexity settings ===
 
     #: Perplexity API key

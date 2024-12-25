@@ -20,7 +20,7 @@ Description of the agent in bullet points:
 
 - This autonomous agent is designed to perform the tasks on his own. 
 - The core of the agent is implemented by planning, feedback and memory modules. 
-- The real intelligence is powered by the OpenAI LLMs. 
+- The real intelligence is powered by LLMs. Currently we support OpenAI and Anthropic.
 - The actions of the agent are defined in workflows, which encapsulate logic of performing the task.
 - Different 3rd party services are integrated with the agent via tools, which are used in the workflows. Example of the tools:
   - Telegram

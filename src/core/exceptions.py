@@ -13,8 +13,8 @@ class MemoryError(AgentBaseError):
     pass
 
 
-class OAIError(AgentBaseError):
-    """Custom exception for OAI errors."""
+class LLMError(AgentBaseError):
+    """Custom exception for LLM errors."""
 
     pass
 

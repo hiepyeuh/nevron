@@ -4,7 +4,8 @@ import numpy as np
 from loguru import logger
 from openai import AsyncOpenAI
 
-from src.llm.oai_client import get_oai_client
+from src.core.config import settings
+from src.llm.llm import get_oai_client
 
 
 class EmbeddingGenerator:
@@ -13,7 +14,7 @@ class EmbeddingGenerator:
     def __init__(
         self,
         client: AsyncOpenAI = get_oai_client(),
-        model: str = "text-embedding-3-small",
+        model: str = settings.OPENAI_EMBEDDING_MODEL,
     ):
         """
         Initialize the embedding generator.
