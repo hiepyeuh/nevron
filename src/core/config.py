@@ -29,6 +29,12 @@ class Settings(BaseSettings):
     PLANNING_GAMMA: float = 0.95  # Default discount factor
     PLANNING_EPSILON: float = 0.1  # Default exploration rate
 
+    #: Memory module configuration
+    MEMORY_COLLECTION_NAME: str = "agent_memory"
+    MEMORY_HOST: str = "localhost"
+    MEMORY_PORT: int = 6333
+    MEMORY_VECTOR_SIZE: int = 1536
+
     # === OpenAI settings ===
 
     #: OpenAI API key
@@ -93,6 +99,14 @@ class Settings(BaseSettings):
         if isinstance(value, str):
             return [chat_id.strip() for chat_id in value.split(",") if chat_id.strip()]
         return value
+
+    def validate_memory_settings(self, params, required_params):
+        """Validate the settings."""
+        for param, param_type in required_params.items():
+            if param not in params:
+                raise ValueError(f"{param} is required.")
+            if not isinstance(params[param], param_type):
+                raise ValueError(f"{param} must be of type {param_type.__name__}.")
 
 
 settings = Settings(_env_file=".env", _env_file_encoding="utf-8")  # type: ignore[call-arg]
