@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     #: Path to the persistent Q-table file
     PERSISTENT_Q_TABLE_PATH: str = "persistent_q_table.json"
 
+    #: PlanningModule parameters
+    PLANNING_ALPHA: float = 0.1  # Default learning rate
+    PLANNING_GAMMA: float = 0.95  # Default discount factor
+    PLANNING_EPSILON: float = 0.1  # Default exploration rate
+
     # === OpenAI settings ===
 
     #: OpenAI API key
