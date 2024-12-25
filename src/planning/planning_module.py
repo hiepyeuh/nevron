@@ -37,8 +37,9 @@ class PlanningModule:
         if actions is None:
             actions = [
                 "idle",
-                "analyze_signal",
-                "research_news",
+                "check_signal",
+                "post_to_telegram",
+                "post_to_twitter",
             ]
 
         self.actions = actions
