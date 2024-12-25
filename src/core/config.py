@@ -99,14 +99,14 @@ class Settings(BaseSettings):
         if isinstance(value, str):
             return [chat_id.strip() for chat_id in value.split(",") if chat_id.strip()]
         return value
-    
-    def validate_settings(self, params, required_params):
+
+    def validate_memory_settings(self, params, required_params):
+        """Validate the settings."""
         for param, param_type in required_params.items():
             if param not in params:
                 raise ValueError(f"{param} is required.")
             if not isinstance(params[param], param_type):
                 raise ValueError(f"{param} must be of type {param_type.__name__}.")
-
 
 
 settings = Settings(_env_file=".env", _env_file_encoding="utf-8")  # type: ignore[call-arg]

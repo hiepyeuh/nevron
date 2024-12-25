@@ -13,7 +13,6 @@ from src.llm.embeddings import EmbeddingGenerator
 from src.llm.oai_client import get_oai_client
 
 
-
 class MemoryModule:
     def __init__(
         self,
@@ -48,18 +47,21 @@ class MemoryModule:
             MEMORY_PORT = 6333
             MEMORY_VECTOR_SIZE = 1536
         """
-        
-        settings.validate_settings({
-            "MEMORY_COLLECTION_NAME": collection_name,
-            "MEMORY_HOST": host,
-            "MEMORY_PORT": port,
-            "MEMORY_VECTOR_SIZE": vector_size,
-        }, {
-            "MEMORY_COLLECTION_NAME": str,
-            "MEMORY_HOST": str,
-            "MEMORY_PORT": int,
-            "MEMORY_VECTOR_SIZE": int,
-        })
+
+        settings.validate_memory_settings(
+            {
+                "MEMORY_COLLECTION_NAME": collection_name,
+                "MEMORY_HOST": host,
+                "MEMORY_PORT": port,
+                "MEMORY_VECTOR_SIZE": vector_size,
+            },
+            {
+                "MEMORY_COLLECTION_NAME": str,
+                "MEMORY_HOST": str,
+                "MEMORY_PORT": int,
+                "MEMORY_VECTOR_SIZE": int,
+            },
+        )
         self.client = QdrantClient(host=host, port=port)
         self.collection_name = collection_name
         self.vector_size = vector_size
