@@ -8,18 +8,20 @@ from qdrant_client import QdrantClient
 from qdrant_client.http import models as qdrant_models
 from qdrant_client.http.models import Distance
 
+from src.core.config import settings
 from src.llm.embeddings import EmbeddingGenerator
 from src.llm.oai_client import get_oai_client
+
 
 
 class MemoryModule:
     def __init__(
         self,
         openai_client: AsyncOpenAI = get_oai_client(),
-        collection_name: str = "agent_memory",
-        host: str = "localhost",
-        port: int = 6333,
-        vector_size: int = 1536,
+        collection_name: str = settings.MEMORY_COLLECTION_NAME or "agent_memory",
+        host: str = settings.MEMORY_HOST or "localhost",
+        port: int = settings.MEMORY_PORT or 6333,
+        vector_size: int = settings.MEMORY_VECTOR_SIZE or 1536,
     ):
         """
         Initializes the connection to Qdrant and ensures that
@@ -31,7 +33,33 @@ class MemoryModule:
             host: Qdrant host
             port: Qdrant port
             vector_size: Size of embedding vectors
+        ## Memory Module Configuration
+
+            The `MemoryModule` is now configurable via the `settings` module. Update the following settings in `core/config.py`:
+
+            - `MEMORY_COLLECTION_NAME`: Name of the Qdrant collection.
+            - `MEMORY_HOST`: Host of the Qdrant service.
+            - `MEMORY_PORT`: Port of the Qdrant service.
+            - `MEMORY_VECTOR_SIZE`: Size of the embedding vectors.
+
+            Example:
+            MEMORY_COLLECTION_NAME = "custom_memory"
+            MEMORY_HOST = "qdrant.example.com"
+            MEMORY_PORT = 6333
+            MEMORY_VECTOR_SIZE = 1536
         """
+        
+        settings.validate_settings({
+            "MEMORY_COLLECTION_NAME": collection_name,
+            "MEMORY_HOST": host,
+            "MEMORY_PORT": port,
+            "MEMORY_VECTOR_SIZE": vector_size,
+        }, {
+            "MEMORY_COLLECTION_NAME": str,
+            "MEMORY_HOST": str,
+            "MEMORY_PORT": int,
+            "MEMORY_VECTOR_SIZE": int,
+        })
         self.client = QdrantClient(host=host, port=port)
         self.collection_name = collection_name
         self.vector_size = vector_size
@@ -109,10 +137,4 @@ class MemoryModule:
 
 def get_memory_module(openai_client: AsyncOpenAI = get_oai_client()) -> MemoryModule:
     """Get a memory module instance."""
-    return MemoryModule(
-        openai_client=openai_client,
-        collection_name="agent_memory",
-        host="localhost",
-        port=6333,
-        vector_size=1536,
-    )
+    return MemoryModule(openai_client=openai_client)
