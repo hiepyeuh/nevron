@@ -23,7 +23,7 @@ class FeedbackModule:
         Returns:
             float: Feedback score (e.g., -1.0 for failure, 1.0 for success, 0.0 for neutral).
         """
-        logger.info(f"Collecting feedback for action '{action}'")
+        logger.debug(f"Collecting feedback for action '{action}'")
 
         # Define feedback logic
         if outcome is None:
@@ -46,7 +46,7 @@ class FeedbackModule:
         }
         self.feedback_history.append(feedback_entry)
 
-        logger.info(f"Feedback recorded: {feedback_entry}")
+        logger.debug(f"Feedback recorded: {feedback_entry}")
         return feedback_score
 
     def get_feedback_history(self, limit: int = 10) -> List[Dict[str, Any]]:
@@ -66,4 +66,4 @@ class FeedbackModule:
         Clear the feedback history.
         """
         self.feedback_history = []
-        logger.info("Feedback history has been reset.")
+        logger.debug("Feedback history has been reset.")

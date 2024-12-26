@@ -4,6 +4,7 @@
 .env
 .ruff_cache/
 qdrant_storage/
+.chromadb/
 persistent_q_table.json
 
 # ====== Default gitignore config ======

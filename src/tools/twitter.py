@@ -71,7 +71,7 @@ async def upload_media_v1(url: str) -> Optional[str]:
         # Upload media using API v1.1
         client_v1 = get_twitter_conn_v1()
         media = client_v1.media_upload(filename="image.jpg", file=processed_file)
-        logger.info(f"Media uploaded successfully with media_id: {media.media_id}")
+        logger.debug(f"Media uploaded successfully with media_id: {media.media_id}")
         return media.media_id
     except Exception as e:
         logger.error(f"Error uploading media: {e}")
@@ -114,7 +114,7 @@ async def post_twitter_thread(tweets: dict, media_url: Optional[str] = None) -> 
 
             tweet_id = tweet_response.data["id"]
             tweet_ids.append(tweet_id)
-            logger.info(f"Tweet {key} posted successfully with ID: {tweet_id}")
+            logger.debug(f"Tweet {key} posted successfully with ID: {tweet_id}")
             previous_tweet_id = tweet_id
 
             # Sleep for 3 seconds to avoid rate limits

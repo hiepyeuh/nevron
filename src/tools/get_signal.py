@@ -18,7 +18,7 @@ async def fetch_signal() -> dict:
             response = await client.get(api_url)
             if response.status_code == 200:
                 data = response.json()
-                logger.info(f"Signal fetched: {data}")
+                logger.debug(f"Signal fetched: {data}")
                 return data
             else:
                 logger.error(f"Failed to fetch signal. Status code: {response.status_code}")

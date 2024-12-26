@@ -13,11 +13,9 @@
 
 ## Overview
 
-This is a simple autonomous agent that uses Q-learning to make decisions, integrates with 
-Telegram and Twitter, and uses Qdrant for vector storage as a memory module.
+This is a simple autonomous agent which can perform various tasks on its own.
 
 Description of the agent in bullet points:
-
 - This autonomous agent is designed to perform the tasks on his own. 
 - The core of the agent is implemented by planning, feedback and memory modules. 
 - The real intelligence is powered by LLMs. Currently we support OpenAI and Anthropic.
@@ -25,8 +23,8 @@ Description of the agent in bullet points:
 - Different 3rd party services are integrated with the agent via tools, which are used in the workflows. Example of the tools:
   - Telegram
   - Twitter
-  - Some API for getting news (not implemented yet)
-  - Perplexity for research (not implemented yet)
+  - Perplexity for research
+  - Some API for getting news (to be customized)
 
 Some more details about some modules:
 
@@ -40,7 +38,7 @@ The feedback module is responsible for providing feedback to the agent and updat
 
 ### Memory module
 
-The memory module is responsible for storing the memories of the agent: what actions were performed, what was the result of the action, etc. It uses Qdrant for storing the memories. The details can be found in code at the [memory_module.py](src/memory/memory_module.py) file.  
+The memory module is responsible for storing the memories of the agent: what actions were performed, what was the result of the action, etc. Currently we provide Chroma and Qdrant as a memory backend. The details can be found in code at the [memory_module.py](src/memory/memory_module.py) file.  
 
 ### Workflows
 
@@ -110,9 +108,9 @@ You will need to have Python 3.12 and pipenv installed. The next step is to chec
 and install the Python dependencies. Then, you will be able to utilize the CLI and run the tests. 
 The following assumes a Debian/Ubuntu machine; your mileage may vary.
 
-### Docker
+### Docker (optional)
 
-You need to have Docker installed for running the Qdrant container. Install this software first (follow the official documentation).
+If you want to use Qdrant as a memory backend, you need to have Docker installed for running the Qdrant container. Install this software first (follow the official documentation).
 
 ### Quickstart
 
@@ -134,13 +132,35 @@ pipenv install --dev
 
 #### Setup Environment Variables
 
-You can use the provided `.env.dev` file to setup the environment variables. 
+You can use the provided `.env.dev` file to find the environment variables you might want to set up.
 
 ```
 cp .env.dev .env
 ```
 
+> [!NOTE]
+> You must set the `OPENAI_API_KEY` environment variable to run the agent. The embeddings for the memory module are powered by OpenAI.
+
+> [!NOTE]
+> If you want to use Perplexity for research (news analysis workflow), you need to set the `PERPLEXITY_API_KEY` environment variable.
+
 ### Run the Agent
+
+Run the agent:
+
+```bash
+make run
+```
+
+Alternatively, you can run the agent manually:
+
+```bash
+pipenv run python -m src.main
+```
+
+#### Run the Agent with Qdrant
+
+If you want to use Qdrant as a memory backend, you need to have Docker installed for running the Qdrant container.
 
 Create the `qdrant_storage` folder for running the Qdrant docker container.
 
@@ -156,17 +176,50 @@ docker run -p 6333:6333 -p 6334:6334 \
     qdrant/qdrant
 ```
 
-Run the agent:
+### Configuration
 
-```bash
-make run
-```
+There are settings you can configure for the agent. To do so, you can edit the `.env` file. 
 
-Alternatively, you can run the agent manually:
+Here is the list of the settings you can configure:
 
-```bash
-pipenv run python -m src.main
-```
+#### General settings
+
+- `ENVIRONMENT` - the environment in which the agent is running ("production", "development", "ci")
+- `PROJECT_NAME` - the name of the project. Typically the name of your agent.
+- `PERSISTENT_Q_TABLE_PATH` - the path to the persistent Q-table file for the planning module.
+- `PLANNING_ALPHA` - the learning rate for the planning module. Increase for faster adaptation but risk instability. Decrease for more stable but slower learning.
+- `PLANNING_GAMMA` - the discount factor for the planning module. Set closer to 1 for long-term planning. Set lower (e.g., 0.5) for short-term rewards.
+- `PLANNING_EPSILON` - the exploration rate for the planning module. Increase to encourage exploration in unpredictable environments. Decrease for environments where optimal actions are well-known.
+- `MEMORY_BACKEND_TYPE` - the type of the memory backend ("chroma", "qdrant")
+- `MEMORY_COLLECTION_NAME` - the name of the memory collection
+- `MEMORY_HOST` - the host of the memory backend. This is used only for Qdrant.
+- `MEMORY_PORT` - the port of the memory backend. This is used only for Qdrant.
+- `MEMORY_VECTOR_SIZE` - the vector size of the memory backend. This is used only for Qdrant. Chroma uses automatically calculated vector size.
+- `MEMORY_PERSIST_DIRECTORY` - the directory to persist the memory backend. This is used only for Chroma.
+- `LLM_PROVIDER` - the type of the LLM provider ("openai", "anthropic")
+- `ANTHROPIC_API_KEY` - the API key for the Anthropic API. This is used only for Anthropic.
+- `ANTHROPIC_MODEL` - the model to use for the Anthropic API. This is used only for Anthropic.
+- `OPENAI_API_KEY` - the API key for the OpenAI API. This is used only for OpenAI.
+- `OPENAI_MODEL` - the model to use for the OpenAI API. This is used only for OpenAI.
+- `OPENAI_EMBEDDING_MODEL` - the model to use for the OpenAI embedding API. We use embedding model for the memory module.
+
+#### Agent settings
+
+- `AGENT_PERSONALITY` - the personality of the agent. It's the general description of the agent, its beliefs, tone, etc.
+- `AGENT_GOAL` - the goal of the agent. It's the general goal of the agent. We recommend making it short.
+- `AGENT_REST_TIME` - the time in seconds the agent will rest between actions.
+
+#### Integration settings
+
+- `TELEGRAM_BOT_TOKEN` - the token for the Telegram bot. You can get it from the [BotFather](https://core.telegram.org/bots#botfather).
+- `TELEGRAM_CHAT_ID` - the chat ID for the Telegram bot. Can be your own chat ID or the chat ID of the group/channel.
+- `TWITTER_API_KEY` - the API key for the Twitter API.
+- `TWITTER_API_SECRET_KEY` - the API secret key for the Twitter API.
+- `TWITTER_ACCESS_TOKEN` - the access token for the Twitter API.
+- `TWITTER_ACCESS_TOKEN_SECRET` - the access token secret for the Twitter API.
+- `PERPLEXITY_API_KEY` - the API key for the Perplexity API.
+- `PERPLEXITY_ENDPOINT` - the endpoint for the Perplexity API.
+
 
 ## Contributing
 
