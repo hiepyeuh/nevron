@@ -5,6 +5,7 @@ from pathlib import Path
 from loguru import logger
 
 from src.core.config import settings
+from src.core.defs import AgentAction
 
 
 class PlanningModule:
@@ -36,9 +37,10 @@ class PlanningModule:
         """
         if actions is None:
             actions = [
-                "idle",
-                "analyze_signal",
-                "research_news",
+                AgentAction.IDLE,
+                AgentAction.CHECK_NEWS,
+                AgentAction.POST_TO_TELEGRAM,
+                AgentAction.POST_TO_TWITTER,
             ]
 
         self.actions = actions
@@ -82,7 +84,7 @@ class PlanningModule:
         except Exception as e:
             logger.error(f"Failed to save Q-table: {e}")
 
-    def get_action(self, state: str) -> str:
+    def get_action(self, state: str) -> AgentAction:
         """
         Select an action using epsilon-greedy policy.
 
@@ -108,7 +110,7 @@ class PlanningModule:
             max_indices = [i for i, q_val in enumerate(state_q_values) if q_val == max_q]
             return self.actions[random.choice(max_indices)]  # break ties at random
 
-    def update_q_table(self, state, action, reward, next_state):
+    def update_q_table(self, state, action: AgentAction, reward, next_state):
         """
         Update the Q-table using the Q-learning formula.
 

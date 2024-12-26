@@ -4,6 +4,7 @@ from typing import Any, Optional
 from loguru import logger
 
 from src.core.config import settings
+from src.core.defs import AgentAction, AgentState
 from src.feedback.feedback_module import FeedbackModule
 from src.memory.memory_module import get_memory_module
 from src.planning.planning_module import PlanningModule
@@ -20,6 +21,14 @@ class Agent:
       4. Execution Module
       5. Feedback Module
       6. Autonomy Engine
+
+    ### Adding a New State
+      1. Open `core/state_enum.py`.
+      2. Add the new state to the `AgentState` class.
+        class AgentState(Enum):
+            DEFAULT = "default"
+            WAITING_FOR_NEWS = "waiting_for_news"
+            NEW_STATE = "new_state"
     """
 
     def __init__(self):
@@ -29,9 +38,10 @@ class Agent:
         #: Initialize Planning Module with persistent Q-table
         self.planning_module = PlanningModule(
             actions=[
-                "idle",  # Do nothing (resting state)
-                "analyze_signal",  # Check if there are new signals
-                "research_news",  # Analyze news and post to Twitter
+                AgentAction.IDLE,  # Do nothing (resting state)
+                AgentAction.CHECK_NEWS,  # Check if there are any news
+                AgentAction.POST_TO_TELEGRAM,  # Analyze news and post to Telegram
+                AgentAction.POST_TO_TWITTER,  # Analyze news and post to Twitter
             ],
             q_table_path=settings.PERSISTENT_Q_TABLE_PATH,  # Persistent Q-table file
         )
@@ -40,25 +50,30 @@ class Agent:
         self.feedback_module = FeedbackModule()
 
         #: Start in a default state
-        self.state = "default"
+        self.state = AgentState.DEFAULT  # "default"
 
     # --------------------------------------------------------------
     # UTILITY FUNCTIONS FOR STATE & PLANNING & FEEDBACK
     # --------------------------------------------------------------
 
-    def _update_state(self, last_action: str):
+    def _update_state(self, last_action: AgentAction):
         """Updates the agent's state based on the last action."""
-        if last_action == "analyze_signal":
-            self.state = "just_analyzed_signal"
-        elif last_action == "research_news":
-            self.state = "just_analyzed_news"
-        elif last_action == "idle":
-            self.state = "default"  # Reset to default
+        if last_action == AgentAction.CHECK_NEWS:
+            self.state = AgentState.WAITING_FOR_NEWS
+        elif last_action == AgentAction.POST_TO_TELEGRAM:
+            self.state = AgentState.JUST_POSTED_TO_TELEGRAM
+        elif last_action == AgentAction.POST_TO_TWITTER:
+            self.state = AgentState.JUST_POSTED_TO_TWITTER
+        elif last_action == AgentAction.IDLE:
+            self.state = AgentState.DEFAULT
         else:
-            self.state = "default"  # Fallback
-        logger.info(f"Agent state updated to: {self.state}")
+            self.state = AgentState.DEFAULT
 
-    def _update_planning_policy(self, state: str, action: str, reward: float, next_state: str):
+        logger.info(f"Agent state updated to: {self.state.name}")
+
+    def _update_planning_policy(
+        self, state: str, action: AgentAction, reward: float, next_state: str
+    ):
         """Update the Q-learning table in the PlanningModule."""
         self.planning_module.update_q_table(state, action, reward, next_state)
 
@@ -70,16 +85,16 @@ class Agent:
     # RL-based PLANNING & EXECUTION
     # --------------------------------------------------------------
 
-    async def _perform_planned_action(self, action_name: str) -> Optional[str]:
+    async def _perform_planned_action(self, action_name: AgentAction) -> Optional[str]:
         """Perform the planned action and return the outcome."""
         outcome = None
 
         # 1. Perform the action based on the action name (arg)
-        if action_name == "idle":
+        if action_name == AgentAction.IDLE:
             logger.info("Agent is idling.")
-            outcome = "idle"
+            outcome = action_name.value
 
-        elif action_name == "analyze_signal":
+        elif action_name == AgentAction.CHECK_NEWS:
             news = await analyze_signal()
             if news:
                 logger.info("News perceived.")
@@ -88,21 +103,23 @@ class Agent:
                 logger.info("No news detected.")
                 outcome = None
 
-        elif action_name == "research_news":
+        elif action_name == AgentAction.POST_TO_TELEGRAM:
             recent_news = "No recent news found"
             retrieved = await self.memory_module.search("news", top_k=1)
             if retrieved:
                 recent_news = retrieved[0]["event"]
             outcome = await analyze_news_workflow(recent_news)
-
+        elif action_name == AgentAction.POST_TO_TWITTER:
+            logger.warning(f"Twitter logic here: {action_name.value}")
+            outcome = None
         else:
             logger.warning(f"Unknown action: {action_name}")
             outcome = None
 
         # 2. Store the outcome in memory
-        event = f"Performed action '{action_name}'"
+        event = f"Performed action '{action_name.value}'"
         await self.memory_module.store(
-            event, action_name, str(outcome), metadata={"state": self.state}
+            event, action_name.value, str(outcome), metadata={"state": self.state}
         )
 
         # 3. Update the state
@@ -120,21 +137,21 @@ class Agent:
             try:
                 # 1. Choose an action
                 #    You might treat the entire system as one "state", or define states.
-                logger.debug(f"Current state: {self.state}")
-                current_state = self.state
+                logger.debug(f"Current state: {self.state.value}")
+                current_state = self.state.value
                 action_name = self.planning_module.get_action(current_state)
-                logger.debug(f"Action chosen: {action_name}")
+                logger.debug(f"Action chosen: {action_name.value}")
 
                 # 2. Perform that action
                 outcome = await self._perform_planned_action(action_name)
                 logger.debug(f"Outcome: {outcome}")
 
                 # 3. Collect feedback
-                reward = self._collect_feedback(action_name, outcome)
+                reward = self._collect_feedback(action_name.value, outcome)
                 logger.debug(f"Reward: {reward}")
 
                 # 4. Update the planning policy
-                next_state = self.state
+                next_state = self.state.value
                 logger.debug(f"Next state: {next_state}")
                 self._update_planning_policy(current_state, action_name, reward, next_state)
 
