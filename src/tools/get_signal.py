@@ -4,25 +4,22 @@ from loguru import logger
 
 async def fetch_signal() -> dict:
     """
-    Fetch a signal from the API endpoint.
+    Fetch a crypto signal from the coingecko API endpoint.
 
     Returns:
-        dict: Parsed JSON response from the API. Expected format:
-                - {"status": "no_data"} when no actionable signal.
-                - {"status": "new_data", "news": "Some breaking news here."} when actionable signal.
+        dict: Parsed JSON response containing actionable crypto news or updates.
     """
-    api_url = "https://example.com/api/signal"  # Replace with the actual API URL
-
+    api_url = "https://api.coingecko.com/api/v3/news"
     try:
         async with httpx.AsyncClient() as client:
             response = await client.get(api_url)
             if response.status_code == 200:
                 data = response.json()
                 logger.debug(f"Signal fetched: {data}")
-                return data
+                return {"status": "new_data", "news": data[0]["title"]}
             else:
                 logger.error(f"Failed to fetch signal. Status code: {response.status_code}")
-                return {"status": "error"}
+                return {"status": "no_data"}
     except Exception as e:
         logger.error(f"Error fetching signal from API: {e}")
         return {"status": "error"}
