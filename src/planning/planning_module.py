@@ -4,8 +4,8 @@ from pathlib import Path
 
 from loguru import logger
 
-from src.core.action_enum import AgentAction
 from src.core.config import settings
+from src.core.defs import AgentAction
 
 
 class PlanningModule:

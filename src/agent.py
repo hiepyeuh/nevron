@@ -3,9 +3,8 @@ from typing import Any, Optional
 
 from loguru import logger
 
-from src.core.action_enum import AgentAction
 from src.core.config import settings
-from src.core.state_enum import AgentState
+from src.core.defs import AgentAction, AgentState
 from src.feedback.feedback_module import FeedbackModule
 from src.memory.memory_module import get_memory_module
 from src.planning.planning_module import PlanningModule
