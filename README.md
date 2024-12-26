@@ -13,11 +13,9 @@
 
 ## Overview
 
-This is a simple autonomous agent that uses Q-learning to make decisions, integrates with 
-Telegram and Twitter, and uses Qdrant for vector storage as a memory module.
+This is a simple autonomous agent which can perform various tasks on its own.
 
 Description of the agent in bullet points:
-
 - This autonomous agent is designed to perform the tasks on his own. 
 - The core of the agent is implemented by planning, feedback and memory modules. 
 - The real intelligence is powered by LLMs. Currently we support OpenAI and Anthropic.
@@ -25,8 +23,8 @@ Description of the agent in bullet points:
 - Different 3rd party services are integrated with the agent via tools, which are used in the workflows. Example of the tools:
   - Telegram
   - Twitter
-  - Some API for getting news (not implemented yet)
-  - Perplexity for research (not implemented yet)
+  - Perplexity for research
+  - Some API for getting news (to be customized)
 
 Some more details about some modules:
 
@@ -40,7 +38,7 @@ The feedback module is responsible for providing feedback to the agent and updat
 
 ### Memory module
 
-The memory module is responsible for storing the memories of the agent: what actions were performed, what was the result of the action, etc. It uses Qdrant for storing the memories. The details can be found in code at the [memory_module.py](src/memory/memory_module.py) file.  
+The memory module is responsible for storing the memories of the agent: what actions were performed, what was the result of the action, etc. Currently we provide Chroma and Qdrant as a memory backend. The details can be found in code at the [memory_module.py](src/memory/memory_module.py) file.  
 
 ### Workflows
 

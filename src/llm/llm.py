@@ -4,6 +4,7 @@ import openai
 from loguru import logger
 
 from src.core.config import settings
+from src.core.defs import LLMProviderType
 from src.core.exceptions import LLMError
 from src.llm.providers.anthropic import call_anthropic
 from src.llm.providers.oai import call_openai
@@ -19,10 +20,8 @@ class LLM:
         Initialize the LLM class based on the selected provider from settings.
         Supported providers: 'openai', 'anthropic'
         """
-        self.provider = settings.LLM_PROVIDER.lower()
-        if self.provider not in {"openai", "anthropic"}:
-            raise ValueError(f"Unsupported LLM provider: {self.provider}")
-        logger.info(f"Using LLM provider: {self.provider}")
+        self.provider = settings.LLM_PROVIDER
+        logger.debug(f"Using LLM provider: {self.provider}")
 
     async def generate_response(self, messages: List[Dict[str, Any]], **kwargs) -> str:
         """
@@ -43,9 +42,9 @@ class LLM:
             }
             messages = [system_message] + messages
 
-        if self.provider == "openai":
+        if self.provider == LLMProviderType.OPENAI:
             return await call_openai(messages, **kwargs)
-        elif self.provider == "anthropic":
+        elif self.provider == LLMProviderType.ANTHROPIC:
             return await call_anthropic(messages, **kwargs)
         else:
             raise LLMError(f"Unknown LLM provider: {self.provider}")

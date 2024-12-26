@@ -12,10 +12,6 @@ from src.core.exceptions import TelegramError as TelegramPostError
 TELEGRAM_BOT_TOKEN = settings.TELEGRAM_BOT_TOKEN
 #: Telegram chat ID
 TELEGRAM_CHAT_ID = settings.TELEGRAM_CHAT_ID
-#: Telegram admin chat ID
-TELEGRAM_ADMIN_CHAT_ID = settings.TELEGRAM_ADMIN_CHAT_ID
-#: Telegram reviewer chat IDs
-TELEGRAM_REVIEWER_CHAT_IDS = settings.TELEGRAM_REVIEWER_CHAT_IDS
 
 # Initialize the bot
 bot = Bot(token=TELEGRAM_BOT_TOKEN)
@@ -72,7 +68,7 @@ async def post_summary_to_telegram(summary_html: str) -> List[int]:
             if not message or not message.message_id:
                 raise TelegramPostError("No message ID returned from Telegram")
             message_ids.append(message.message_id)
-            logger.info(
+            logger.debug(
                 f"Message chunk sent successfully to Telegram with ID: {message.message_id}"
             )
 

@@ -3,7 +3,7 @@ from typing import List
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from src.core.defs import Environment
+from src.core.defs import Environment, LLMProviderType, MemoryBackendType
 
 
 class Settings(BaseSettings):
@@ -13,13 +13,19 @@ class Settings(BaseSettings):
         env_file=".env", env_file_encoding="utf-8", case_sensitive=True
     )
 
-    # === General settings ===
+    # ==========================
+    # General settings
+    # ==========================
+
+    # --- Project settings ---
 
     #: Environment (Production, Development, CI)
     ENVIRONMENT: Environment = Environment.PRODUCTION
 
     #: Project name
     PROJECT_NAME: str = "autonomous-agent"
+
+    # --- Planning settings ---
 
     #: Path to the persistent Q-table file
     PERSISTENT_Q_TABLE_PATH: str = "persistent_q_table.json"
@@ -29,13 +35,42 @@ class Settings(BaseSettings):
     PLANNING_GAMMA: float = 0.95  # Default discount factor
     PLANNING_EPSILON: float = 0.1  # Default exploration rate
 
-    #: Memory module configuration
+    # --- Memory settings ---
+
+    #: Memory backend type
+    MEMORY_BACKEND_TYPE: MemoryBackendType = MemoryBackendType.CHROMA
+
+    #: Memory collection name
     MEMORY_COLLECTION_NAME: str = "agent_memory"
+
+    #: Memory host. Used only for Qdrant.
     MEMORY_HOST: str = "localhost"
+
+    #: Memory port. Used only for Qdrant.
     MEMORY_PORT: int = 6333
+
+    #: Memory vector size. Used only for Qdrant.
     MEMORY_VECTOR_SIZE: int = 1536
 
-    # === Agent Personality settings ===
+    #: Memory persist directory. Used only for ChromaDB.
+    MEMORY_PERSIST_DIRECTORY: str = ".chromadb"
+
+    # --- LLMs settings ---
+
+    LLM_PROVIDER: LLMProviderType = LLMProviderType.OPENAI
+
+    #: Anthropic
+    ANTHROPIC_API_KEY: str = ""
+    ANTHROPIC_MODEL: str = "claude-2"
+
+    #: OpenAI
+    OPENAI_API_KEY: str = ""
+    OPENAI_MODEL: str = "gpt-4o-mini"
+    OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
+
+    # ==========================
+    # Agent settings
+    # ==========================
 
     #: The agent's personality description
     AGENT_PERSONALITY: str = (
@@ -52,27 +87,14 @@ class Settings(BaseSettings):
     #: The agent's goal
     AGENT_GOAL: str = "Your goal is to analyze the news and provide insights."
 
-    # === LLMs settings ===
+    #: Agent rest time in seconds between actions
+    AGENT_REST_TIME: int = 10  # Default rest time in seconds
 
-    LLM_PROVIDER: str = "openai"  # or "anthropic"
+    # ==========================
+    # Integration settings
+    # ==========================
 
-    #: Anthropic
-    ANTHROPIC_API_KEY: str = ""
-    ANTHROPIC_MODEL: str = "claude-2"
-
-    #: OpenAI
-    OPENAI_API_KEY: str = ""
-    OPENAI_MODEL: str = "gpt-4o-mini"
-    OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
-    # === Perplexity settings ===
-
-    #: Perplexity API key
-    PERPLEXITY_API_KEY: str = ""
-
-    #: Perplexity endpoint
-    PERPLEXITY_ENDPOINT: str = ""
-
-    # === Telegram settings ===
+    # --- Telegram settings ---
 
     #: Telegram bot token
     TELEGRAM_BOT_TOKEN: str = ""
@@ -80,13 +102,7 @@ class Settings(BaseSettings):
     #: Telegram chat ID for main channel/group
     TELEGRAM_CHAT_ID: str = ""
 
-    #: Telegram admin chat ID for administrative messages
-    TELEGRAM_ADMIN_CHAT_ID: str = ""
-
-    #: Telegram reviewer chat IDs for content review
-    TELEGRAM_REVIEWER_CHAT_IDS: List[str] = []
-
-    # === Twitter settings ===
+    # --- Twitter settings ---
 
     #: Twitter API key
     TWITTER_API_KEY: str = ""
@@ -100,7 +116,17 @@ class Settings(BaseSettings):
     #: Twitter access token secret
     TWITTER_ACCESS_TOKEN_SECRET: str = ""
 
-    # ==== Validators ====
+    # --- Perplexity settings ---
+
+    #: Perplexity API key
+    PERPLEXITY_API_KEY: str = ""
+
+    #: Perplexity endpoint
+    PERPLEXITY_ENDPOINT: str = ""
+
+    # ==========================
+    # Validators
+    # ==========================
 
     @field_validator("ENVIRONMENT", mode="before")
     def validate_environment(cls, value: str | Environment) -> Environment:

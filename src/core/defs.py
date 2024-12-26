@@ -15,9 +15,8 @@ class AgentAction(Enum):
     """The actions that the agent can take."""
 
     IDLE = "idle"
-    CHECK_NEWS = "check_news"
-    POST_TO_TELEGRAM = "post_to_telegram"
-    POST_TO_TWITTER = "post_to_twitter"
+    ANALYZE_NEWS = "analyze_news"
+    CHECK_SIGNAL = "check_signal"
 
 
 class AgentState(Enum):
@@ -26,5 +25,19 @@ class AgentState(Enum):
     DEFAULT = "default"
     IDLE = "idle"
     WAITING_FOR_NEWS = "waiting_for_news"
-    JUST_POSTED_TO_TELEGRAM = "just_posted_to_telegram"
-    JUST_POSTED_TO_TWITTER = "just_posted_to_twitter"
+    JUST_ANALYZED_NEWS = "just_analyzed_news"
+    JUST_ANALYZED_SIGNAL = "just_analyzed_signal"
+
+
+class MemoryBackendType(str, Enum):
+    """Available memory backend types."""
+
+    QDRANT = "qdrant"
+    CHROMA = "chroma"
+
+
+class LLMProviderType(str, Enum):
+    """Available LLM provider types."""
+
+    OPENAI = "openai"
+    ANTHROPIC = "anthropic"
