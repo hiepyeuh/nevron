@@ -1,4 +1,4 @@
-DIRS_PYTHON := src
+DIRS_PYTHON := src tests
 
 .PHONY: help
 help:
@@ -10,6 +10,8 @@ help:
 	@echo "  format          Format source code"
 	@echo "  lint            Run lint checks"
 	@echo "  run             Run the agent"
+	@echo "  test            Run tests"
+	@echo "  test-ci         Run tests in CI"
 
 .PHONY: deps
 deps:
@@ -49,6 +51,22 @@ lint-mypy:
 .PHONY: run
 run:
 	pipenv run python -m src.main
+
+.PHONY: test
+test:
+	pipenv run pytest \
+		--cov-report term-missing \
+		--cov-report lcov \
+		--cov=src \
+		tests/
+
+.PHONY: test-ci
+test-ci:
+	pipenv run pytest \
+		--cov-report term-missing \
+		--cov-report lcov \
+		--cov=src \
+		tests/
 
 # .PHONY: jupyternotebook
 # jupyternotebook:
