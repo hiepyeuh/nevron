@@ -1,0 +1,37 @@
+site_name: My AI Agent
+site_description: Documentation for the Autonomous AI Agent framework
+site_author: Axioma AI
+theme:
+  name: material
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      primary: indigo
+      accent: pink
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: indigo
+      accent: yellow
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Fira Code
+nav:
+  - Home: index.md
+  - Agent:
+      - Overview: agent/overview.md
+      - Workflows: agent/workflows.md
+      - LLM Integration: agent/llm.md
+plugins:
+  - macros
+  - awesome-pages
+markdown_extensions:
+  - codehilite
+  - admonition
+  - toc
