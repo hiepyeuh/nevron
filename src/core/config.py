@@ -140,13 +140,6 @@ class Settings(BaseSettings):
                 f"Invalid environment value: {value}. Must be one of {list(Environment)}"
             )
 
-    @field_validator("TELEGRAM_REVIEWER_CHAT_IDS", mode="before")
-    def parse_reviewer_chat_ids(cls, value: str | List[str]) -> List[str]:
-        """Ensure TELEGRAM_REVIEWER_CHAT_IDS is parsed as a list."""
-        if isinstance(value, str):
-            return [chat_id.strip() for chat_id in value.split(",") if chat_id.strip()]
-        return value
-
     def validate_memory_settings(self, params, required_params):
         """Validate the settings."""
         for param, param_type in required_params.items():
