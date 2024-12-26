@@ -19,6 +19,10 @@ pillow = "*"
 lxml-html-clean = "*"
 requests-html = "*"
 qdrant-client = {extras = ["http"], version = "*"}
+mkdocs = "*"
+mkdocs-material = "*"
+mkdocs-macros-plugin = "*"
+mkdocs-awesome-pages-plugin = "*"
 
 [dev-packages]
 mypy = "*"
