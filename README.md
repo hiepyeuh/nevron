@@ -1,5 +1,6 @@
 # Autonomous Agent
-[![CI](https://github.com/axioma-ai-labs/aa-core/actions/workflows/ci-lint.yml/badge.svg)](https://github.com/axioma-ai-labs/aa-core/actions/workflows/ci-lint.yml)
+[![CI](https://github.com/axioma-ai-labs/aa-core/actions/workflows/main.yml/badge.svg)](https://github.com/axioma-ai-labs/aa-core/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/axioma-ai-labs/aa-core/graph/badge.svg?token=krO46pgB7P)](https://codecov.io/gh/axioma-ai-labs/aa-core)
 
 ## Table of Contents
 
