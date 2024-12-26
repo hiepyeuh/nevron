@@ -88,7 +88,7 @@ class Settings(BaseSettings):
     AGENT_GOAL: str = "Your goal is to analyze the news and provide insights."
 
     #: Agent rest time in seconds between actions
-    AGENT_REST_TIME: int = 10  # Default rest time in seconds
+    AGENT_REST_TIME: int = 300
 
     # ==========================
     # Integration settings
@@ -122,7 +122,7 @@ class Settings(BaseSettings):
     PERPLEXITY_API_KEY: str = ""
 
     #: Perplexity endpoint
-    PERPLEXITY_ENDPOINT: str = ""
+    PERPLEXITY_ENDPOINT: str = "https://api.perplexity.ai/chat/completions"
 
     # ==========================
     # Validators
