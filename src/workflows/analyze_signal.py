@@ -9,12 +9,7 @@ from src.tools.twitter import post_twitter_thread
 
 
 async def analyze_signal(memory: MemoryModule = get_memory_module()) -> Optional[str]:
-    """
-    Fetch a signal, analyze it with an LLM, and post the result on Twitter.
-
-    Returns:
-        Optional[str]: Twitter post result or None if an error occurred.
-    """
+    """Fetch a signal, analyze it with an LLM, and post the result on Twitter."""
     try:
         logger.info("Fetching signal...")
         signal = await fetch_signal()

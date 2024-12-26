@@ -4,7 +4,7 @@ from loguru import logger
 
 async def fetch_signal() -> dict:
     """
-    Fetch a crypto signal from the API endpoint.
+    Fetch a crypto signal from the coingecko API endpoint.
 
     Returns:
         dict: Parsed JSON response containing actionable crypto news or updates.
