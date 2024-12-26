@@ -52,6 +52,12 @@ class Agent:
         #: Start in a default state
         self.state = AgentState.DEFAULT  # "default"
 
+        # ===== Agent Personality =====
+        #: The agent's personality description
+        self.personality = settings.AGENT_PERSONALITY
+        #: The agent's goal
+        self.goal = settings.AGENT_GOAL
+
     # --------------------------------------------------------------
     # UTILITY FUNCTIONS FOR STATE & PLANNING & FEEDBACK
     # --------------------------------------------------------------

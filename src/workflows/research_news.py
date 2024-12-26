@@ -2,7 +2,7 @@ from typing import Optional
 
 from loguru import logger
 
-from src.llm.oai_client import call_openai_api
+from src.llm.llm import LLM
 from src.memory.memory_module import MemoryModule, get_memory_module
 from src.tools.twitter import post_twitter_thread
 
@@ -10,19 +10,19 @@ from src.tools.twitter import post_twitter_thread
 async def analyze_news_workflow(
     news: str, memory: MemoryModule = get_memory_module()
 ) -> Optional[str]:
-    """
-    1) Analyze the news with an LLM
-    2) Prepare a tweet
-    3) Publish tweet on Twitter
-    """
+    """Workflow for analyzing news and posting to Twitter."""
     try:
         # Retrieve recent memory for context
         recent_memories = await memory.search("recent events", top_k=3)
         context = "\n".join([f"- {mem['event']}: {mem['outcome']}" for mem in recent_memories])
 
         # Prepare LLM prompt
-        prompt = f"Context:\n{context}\n\nNews:\n{news}\n\nAnalyze the news and provide insights."
-        analysis = await call_openai_api(prompt)
+        llm = LLM()
+        user_prompt = (
+            f"Context:\n{context}\n\nNews:\n{news}\n\nAnalyze the news and provide insights."
+        )
+        messages = [{"role": "user", "content": user_prompt}]
+        analysis = await llm.generate_response(messages)
 
         # Prepare tweet
         tweet_text = f"Breaking News:\n{analysis}\n#StayInformed"

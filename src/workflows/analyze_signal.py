@@ -6,11 +6,7 @@ from src.tools.get_signal import fetch_signal
 
 
 async def analyze_signal() -> Optional[str]:
-    """
-    1) Fetch the signal
-    2) Check if the signal is actionable
-    3) Return the actionable signal
-    """
+    """Workflow for analyzing a signal and returning the actionable signal."""
     signal = await fetch_signal()
     if signal.get("status") == "new_data" and "news" in signal:
         news = signal["news"]

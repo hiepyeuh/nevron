@@ -10,7 +10,7 @@ from qdrant_client.http.models import Distance
 
 from src.core.config import settings
 from src.llm.embeddings import EmbeddingGenerator
-from src.llm.oai_client import get_oai_client
+from src.llm.llm import get_oai_client
 
 
 class MemoryModule:
