@@ -1,3 +1,4 @@
+from typing import List
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -94,33 +95,6 @@ class Settings(BaseSettings):
     # ==========================
 
     # --- Telegram settings ---
-    #: Perplexity news settings
-    PERPLEXITY_NEWS_PROMPT: str = "Search for the latest cryptocurrency news: Neurobro"
-    PERPLEXITY_NEWS_CATEGORY_LIST: List[str] = [
-        "Finance",
-        "Regulatory",
-        "Market capitalzation",
-        "Technical analysis",
-        "Price movements",
-    ]
-    # === LLMs settings ===
-
-    LLM_PROVIDER: str = "openai"  # or "anthropic"
-
-    #: Anthropic
-    ANTHROPIC_API_KEY: str = ""
-    ANTHROPIC_MODEL: str = "claude-2"
-
-    #: OpenAI
-    OPENAI_API_KEY: str = ""
-    OPENAI_MODEL: str = "gpt-4o-mini"
-    OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
-
-    #: Perplexity
-    PERPLEXITY_API_KEY: str = ""
-    PERPLEXITY_ENDPOINT: str = ""
-
-    # === Telegram settings ===
 
     #: Telegram bot token
     TELEGRAM_BOT_TOKEN: str = ""
@@ -149,6 +123,21 @@ class Settings(BaseSettings):
 
     #: Perplexity endpoint
     PERPLEXITY_ENDPOINT: str = "https://api.perplexity.ai/chat/completions"
+
+    #: Perplexity news settings
+    PERPLEXITY_NEWS_PROMPT: str = "Search for the latest cryptocurrency news: Neurobro"
+    PERPLEXITY_NEWS_CATEGORY_LIST: List[str] = [
+        "Finance",
+        "Regulatory",
+        "Market capitalzation",
+        "Technical analysis",
+        "Price movements",
+    ]
+
+    # --- Coinstats settings ---
+
+    #: Coinstats API key
+    COINSTATS_API_KEY: str = ""
 
     # ==========================
     # Validators

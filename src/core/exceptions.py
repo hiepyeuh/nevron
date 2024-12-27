@@ -35,3 +35,9 @@ class APIError(AgentBaseError):
     """Exception raised when API request fails."""
 
     pass
+
+
+class CoinstatsError(AgentBaseError):
+    """Exception raised when Coinstats API request fails."""
+
+    pass

@@ -27,11 +27,14 @@ async def search_with_perplexity(query: str) -> str:
                     "role": "system",
                     "content": (
                         "You are a capable and efficient search assistant. "
-                        "Your job is to find relevant and concise information about cryptocurrencies "
-                        "based on the query provided."
+                        "Your job is to find relevant and concise information about "
+                        "cryptocurrencies based on the query provided."
                         "Validate the results for relevance and clarity. "
-                        "Return the results ONLY in the following string - dictionary format (include curly brackets): "
-                        f'{{ "headline": "all news texts here ", "category": "choose relevant news category from {settings.PERPLEXITY_NEWS_CATEGORY_LIST} ", "timestamp": "..." }}'
+                        "Return the results ONLY in the following string - dictionary format "
+                        "(include curly brackets): "
+                        f'{{ "headline": "all news texts here ", "category": "choose relevant news '
+                        f'category from {settings.PERPLEXITY_NEWS_CATEGORY_LIST} ", "timestamp": '
+                        f'"..." }}'
                     ),
                 },
                 {
