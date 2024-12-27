@@ -12,6 +12,7 @@ help:
 	@echo "  run             Run the agent"
 	@echo "  test            Run tests"
 	@echo "  test-ci         Run tests in CI"
+	@echo "  docs            Generate docs"
 
 .PHONY: deps
 deps:
@@ -67,6 +68,10 @@ test-ci:
 		--cov-report lcov \
 		--cov=src \
 		tests/
+
+.PHONY: docs
+docs:
+	pipenv run mkdocs serve
 
 # .PHONY: jupyternotebook
 # jupyternotebook:
