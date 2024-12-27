@@ -47,9 +47,9 @@ async def fetch_signal() -> dict:
 
     Returns:
         dict: Parsed JSON response containing actionable crypto news or updates.
-            Format: {"status": str, "news": str}
-            - status: "new_data", "no_data", or "error"
-            - news: title of the latest news article if status is "new_data"
+            Format: {"status": str, "content": str}
+            - status: "new_signal", "no_data", or "error"
+            - content: title of the latest news article if status is "new_signal"
     """
     try:
         data = await get_coinstats_news()
@@ -58,8 +58,8 @@ async def fetch_signal() -> dict:
             logger.debug(f"Signal fetched: {latest_news}")
             signal = latest_news.get("title", None)  # type: ignore
             if not signal:
-                return {"status": "error"}
-            return {"status": "new_data", "news": signal}
+                return {"status": "no_data"}
+            return {"status": "new_signal", "content": signal}
         else:
             logger.error("No news data available in the response")
             return {"status": "no_data"}
