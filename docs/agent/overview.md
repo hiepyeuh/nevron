@@ -1,8 +1,8 @@
-# Agent Overview
+# Nevron Overview
 
 ## Architecture
 
-The autonomous agent is built with a modular architecture consisting of several key components that work together to enable intelligent decision-making and task execution.
+Nevron is an autonomous AI agent built with a modular architecture consisting of several key components that work together to enable intelligent decision-making and task execution.
 
 ![Architecture Diagram](/assets/architecture.png)
 
@@ -15,12 +15,12 @@ The Feedback Module bridges planning and execution by processing the outcomes of
 ### 3. Workflows
 Workflows act as the execution layer, translating high-level plans into actionable steps. This module manages task sequences and dependencies. It provides standardized operation patterns, maintaining consistency and efficiency throughout the system.
 
-Using workflows, the agent can perform tasks such as signal analysis or news research.
+Using workflows, Nevron can perform tasks such as **signal analysis** or *news research*.
 
 ### 4. Tools
 The Tools module represents the operational toolkit, executing workflow tasks via integrations. It interfaces seamlessly with external services and APIs to deliver concrete implementation capabilities. 
 
-This enables effective real-world interactions such as sending messages to Telegram or Twitter.
+This enables effective real-world interactions such as sending messages to **Telegram** or **Twitter**.
 
 ### 5. Memory Module (Qdrant)
 The Memory Module, powered by [Qdrant](https://qdrant.tech/), serves as a sophisticated vector storage system for the platform. 
@@ -32,7 +32,7 @@ It maintains a persistent history of states and actions, facilitating efficient 
 ## Decision Making Process
 
 1. **State Assessment**
-      - Agent evaluates current context
+      - Nevron evaluates current context
       - Retrieves relevant memories
       - Analyzes available actions
 
