@@ -124,7 +124,6 @@ class Agent:
 
     async def start_runtime_loop(self) -> None:
         """The main runtime loop for the agent."""
-        await analyze_signal()
         logger.info("Starting the autonomous agent runtime loop...")
         while True:
             try:
