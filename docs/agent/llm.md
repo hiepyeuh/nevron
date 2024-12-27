@@ -1,78 +1,65 @@
 # LLM Integration
 
-## Overview
-
-The autonomous agent uses OpenAI's language models for intelligent decision-making and natural language processing capabilities.
+Large Language Models are the backbone of the Autonomous Agent. They are the core component that allows the agent to understand and respond to natural language.
 
 ## Implementation
 
 The LLM integration is primarily handled through the `src/llm` module, which provides:
-- API interaction with OpenAI
-- Embeddings generation
+
+- API interaction with OpenAI/Anthropic models
+- Embeddings generation for memory storage
 - Context management
-- Response processing
+- Response processing & generation
 
-## Key Features
+## Overview
 
-### Embeddings
-- Uses OpenAI's embedding models
-- Generates vector representations for memory storage
-- Enables semantic search in the memory module
-- Located in `src/llm/embeddings.py`
+### 1. Embeddings
 
-### Context Management
-- Maintains conversation history
-- Handles token limits
-- Manages prompt engineering
-- Ensures consistent agent behavior
+For memory storage, the agent uses OpenAI's embedding models to generate vector representations of the memories. These vectors are then stored in a vector database for efficient retrieval and semantic search. To generate embeddings, the agent uses the `src/llm/embeddings.py` module.
 
-## Usage in Components
+For embeddings generation we recommend using OpenAI's [`text-embedding-3-large`](https://openai.com/index/new-embedding-models-and-api-updates/) model.
 
-### Memory Module
-- Generates embeddings for storing memories
-- Enables semantic similarity search
-- Helps in context retrieval
+### 2. Response Processing & Generation
 
-### Workflows
-- Natural language understanding
-- Task interpretation
-- Response generation
-- Decision support
+The agent uses the LLM class to generate responses through different providers (currently supported: OpenAI or Anthropic). The `src/llm/llm.py` module provides:
+
+- Unified interface for multiple LLM providers through the `LLM` class
+- Automatic system message injection with agent personality and goals
+- Async response generation via `generate_response()` method
+- Support for additional parameters like model and temperature
+- OpenAI client initialization helper via `get_oai_client()`
+
+-----
 
 ## Configuration
 
+Currently, the agent is configured to use OpenAI's `gpt-4o` model, but it can be easily configured to use other models (e.g. `gpt-4o-mini`, `gpt-4`, as well as Anthropic's models like `claude-3-5-sonnet` model).
+
 ### Environment Variables
-Required environment variables for LLM integration:
+To choose model of your choice, set the following environment variables:
 ```
 OPENAI_API_KEY=your-api-key
 OPENAI_MODEL=gpt-4  # or other supported models
+OPENAI_EMBEDDING_MODEL=text-embedding-3-large # or other supported embedding models
 ```
 
-### Model Selection
-- Default: GPT-4
-- Configurable through environment variables
-- Supports different OpenAI models
+-----
 
 ## Best Practices
 
 1. **Token Management**
-   - Monitor token usage
-   - Implement rate limiting
-   - Handle API quotas
+   Monitor and track token consumption across API calls. Implement rate limiting mechanisms to prevent exceeding quotas. Establish proper API quota management systems to maintain service availability.
 
 2. **Error Handling**
-   - Graceful fallbacks
-   - Retry mechanisms
-   - Error logging
+   Implement graceful fallback mechanisms when API calls fail. Set up automatic retry logic with exponential backoff. Maintain comprehensive error logging to track and debug issues.
 
 3. **Cost Optimization**
-   - Use appropriate model tiers
-   - Implement caching where possible
-   - Monitor API usage
+   Select appropriate model tiers based on task requirements. Implement response caching for frequently requested prompts. Track and analyze API usage patterns to optimize costs.
+
+-----
 
 ## Future Enhancements
 
-- Support for additional LLM providers
-- Advanced prompt engineering
-- Fine-tuning capabilities
-- Enhanced error handling
+We're planning to add support for additional LLM providers, advanced prompt engineering, fine-tuning capabilities, and enhanced error handling in the nearest future.
+
+Stay tuned for updates! ⚡️
