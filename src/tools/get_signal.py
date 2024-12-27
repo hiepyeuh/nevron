@@ -1,5 +1,7 @@
-import httpx
 from loguru import logger
+
+from src.core.config import settings
+from src.tools.search_with_perplexity import search_with_perplexity
 
 
 async def fetch_signal() -> dict:
@@ -23,3 +25,9 @@ async def fetch_signal() -> dict:
     except Exception as e:
         logger.error(f"Error fetching signal from API: {e}")
         return {"status": "error"}
+    if data:
+        logger.info(f"Signal fetched: {data}")
+        return {"status": "new_data", "news": data}
+    else:
+        logger.info(f"No data available: {data}")
+        return {"status": "no_data"}

@@ -30,11 +30,13 @@ async def search_with_perplexity(query: str) -> str:
                         "Your job is to find relevant and concise information about cryptocurrencies "
                         "based on the query provided."
                         "Validate the results for relevance and clarity. "
+                        "Return the results ONLY in the following string - dictionary format (include curly brackets): "
+                        f'{{ "headline": "all news texts here ", "category": "choose relevant news category from {settings.PERPLEXITY_NEWS_CATEGORY_LIST} ", "timestamp": "..." }}'
                     ),
                 },
                 {
                     "role": "user",
-                    "content": f"Search for the latest cryptocurrency news: {query}",
+                    "content": f"{query}",
                 },
             ],
             "temperature": 0.3,
@@ -62,7 +64,7 @@ async def search_with_perplexity(query: str) -> str:
         logger.debug(f"Perplexity Search | Successfully retrieved results: {data}")
         summary = (
             data.get("choices", [{}])[0].get("message", {}).get("content", "No summary available.")
-        )  # data.get("summary", "No summary available.")
+        )
 
         # Get the total tokens used from the response
         total_tokens = data.get("usage", {}).get("total_tokens", 0)
@@ -70,6 +72,7 @@ async def search_with_perplexity(query: str) -> str:
         # Estimate the cost
         estimated_cost = estimate_perplexity_cost_per_request(total_tokens)
         logger.debug(f"Estimated cost for the request: ${estimated_cost:.6f}")
+        logger.info(f"Perplexity Search output type: {type(summary)}")
         return f"Perplexity Search Results:\n{summary}"
     except httpx.TimeoutException as e:
         logger.error(f"Timeout during Perplexity search: {str(e)}")
