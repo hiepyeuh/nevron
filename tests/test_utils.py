@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock
+
 import pytest
 from loguru import logger
 
@@ -34,10 +35,10 @@ def test_log_settings(mock_settings, mock_logger):
     """Test logging settings function."""
     # act:
     log_settings()
-    
+
     # assert:
     assert mock_logger.call_count >= 13  # At least 13 log calls expected
-    
+
     # Verify some specific log messages
     expected_calls = [
         "=" * 40,
@@ -56,6 +57,6 @@ def test_log_settings(mock_settings, mock_logger):
         "Twitter Integration: Configured",
         "Perplexity Integration: Configured",
     ]
-    
+
     for expected_call in expected_calls:
         mock_logger.assert_any_call(expected_call)
