@@ -158,16 +158,16 @@ WORKFLOW_NAME_SETTING=value
 ### Best Practices
 
 - **Error Handling:** Implement comprehensive error handling to manage unexpected scenarios.
-   - Provide clear and actionable error messages for debugging.
-   - Anticipate edge cases to ensure robustness.
+      - Provide clear and actionable error messages for debugging.
+      - Anticipate edge cases to ensure robustness.
 
 - **Logging:** Log critical workflow steps to facilitate debugging and monitoring.
-   - Track execution times and performance metrics.
-   - Use logs to identify bottlenecks or failures.
+      - Track execution times and performance metrics.
+      - Use logs to identify bottlenecks or failures.
 
 - **Testing:** Create unit tests to verify the functionality of individual workflow components.
-   - Develop integration tests to ensure smooth interactions with other modules and tools.
-   - Simulate edge cases and failure scenarios to validate error handling.
+      - Develop integration tests to ensure smooth interactions with other modules and tools.
+      - Simulate edge cases and failure scenarios to validate error handling.
 
 - **Unit Testing:** Create unit tests to verify the functionality of individual workflow components.
 - **Integration Testing:** Develop integration tests to ensure smooth interactions with other modules and tools.

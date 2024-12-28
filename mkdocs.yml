@@ -35,11 +35,13 @@ nav:
       - Tools: agent/tools.md
       - Memory: agent/memory.md
       - Planning: agent/planning.md
+      - Feedback: agent/feedback.md
   - 🛠️ Development:
       - Setup: development/setup.md
       - Contribution: development/contribution.md
       - Configuration: development/configuration.md
   - FAQ: faq.md
+  - Discussions: 
   - Creators: creators.md
 plugins:
   - macros

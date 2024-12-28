@@ -34,8 +34,8 @@ class FeedbackModule:
             feedback_status = "success"
 
         # DEBUG!! We don't have really successful actions yet. Remove this later
-        feedback_score = 0.0
-        feedback_status = "neutral"
+        # feedback_score = 0.0
+        # feedback_status = "neutral"
 
         # Log feedback to history
         feedback_entry = {

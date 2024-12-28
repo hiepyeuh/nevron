@@ -23,10 +23,12 @@ The Tools module represents the operational toolkit, executing workflow tasks vi
 
 This enables effective real-world interactions such as sending messages to **Telegram** or **Twitter**.
 
-### 5. Memory Module (Qdrant)
-The Memory Module, powered by [Qdrant](https://qdrant.tech/), serves as a sophisticated vector storage system for the platform. 
+### 5. Memory Module (Chroma)
+The Memory Module, powered by [Chroma](https://www.trychroma.com/), serves as a sophisticated vector storage system for the platform. 
 
 It maintains a persistent history of states and actions, facilitating efficient context retrieval. By storing rewards and learning patterns, it optimizes performance through Qdrant’s advanced vector database capabilities.
+
+Alternative to Qdrant, Chroma is a vector database that is easier to setup and use.
 
 -----
 
