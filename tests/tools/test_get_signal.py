@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -57,9 +58,10 @@ async def test_get_coinstats_news_http_error(mock_tool_logger, mock_httpx_client
     """Test error handling when Coinstats API returns an error."""
     # arrange:
     mock_debug, mock_error = mock_tool_logger
-    mock_response = Response(500)
+    mock_response = MagicMock(spec=Response)
+    mock_response.status_code = 500
+    mock_response.raise_for_status.side_effect = Exception("HTTP Error")
     mock_httpx_client.get.return_value = mock_response
-    mock_response.raise_for_status = MagicMock(side_effect=Exception("HTTP Error"))
 
     with (
         patch("httpx.AsyncClient", return_value=mock_httpx_client),
@@ -97,9 +99,10 @@ async def test_fetch_signal_no_news(mock_tool_logger):
     """Test signal fetching when no news is available."""
     # arrange:
     mock_debug, mock_error = mock_tool_logger
-    news_data = {"result": []}
+    news_data: Dict[str, Any] = {"result": []}
+    mock_get_news = AsyncMock(return_value=news_data)
 
-    with patch("src.tools.get_signal.get_coinstats_news", return_value=news_data):
+    with patch("src.tools.get_signal.get_coinstats_news", new=mock_get_news):
         # act:
         result = await fetch_signal()
 

@@ -32,12 +32,15 @@ def runtime_agent():
     ):
         agent = Agent()
         # Mock memory module methods
+        agent.memory_module = MagicMock()
         agent.memory_module.store = AsyncMock()
         agent.memory_module.search = AsyncMock()
         # Mock planning module methods
+        agent.planning_module = MagicMock()
         agent.planning_module.get_action = MagicMock(return_value=AgentAction.IDLE)
         agent.planning_module.update_q_table = MagicMock()
         # Mock feedback module methods
+        agent.feedback_module = MagicMock()
         agent.feedback_module.collect_feedback = MagicMock(return_value=1.0)
         return agent
 

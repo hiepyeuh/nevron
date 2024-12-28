@@ -28,6 +28,7 @@ def agent():
     ):
         agent = Agent()
         # Make store method a coroutine
+        agent.memory_module = MagicMock()
         agent.memory_module.store = AsyncMock()
         # Make search method a coroutine
         agent.memory_module.search = AsyncMock()
