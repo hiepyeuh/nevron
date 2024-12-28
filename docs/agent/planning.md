@@ -1,4 +1,4 @@
-# Planning Module Documentation
+# **Planning Module**
 
 ## Overview
 
@@ -52,3 +52,7 @@ All the parameters can be divided into two groups:
 - `planning_gamma`: (Discount Factor): Determines how much the agent values future rewards vs immediate rewards. Values closer to 1 make the agent consider long-term consequences, while lower values like 0.5 make it focus on immediate rewards.
 
 - `planning_epsilon`: (Exploration Rate): Controls the balance between exploring new actions vs exploiting known good actions. Higher values encourage trying new things in uncertain environments, while lower values stick to proven strategies in well-understood situations.
+
+-----
+
+If you have any questions or need further assistance, please refer to the [FAQ](faq.md) or initiate a discussion on our [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).

@@ -1,6 +1,6 @@
 # **Workflows**
 
-## **Overview**
+## Overview
 
 Workflows represent the backbone of Nevron's operational logic, defining specific tasks and integrating with tools and modules to deliver actionable outcomes. 
 
@@ -8,7 +8,7 @@ Each workflow encapsulates a distinct function, ensuring that the agent can oper
 
 ---
 
-## **Available Workflows**
+## Available Workflows
 
 ### 1. Analyze Signal
 
@@ -50,7 +50,7 @@ This workflow specializes in gathering and analyzing news content to provide sum
 
 ---
 
-## **Workflow Architecture**
+## Workflow Architecture
 
 Workflows in Nevron follow a modular and reusable design to ensure scalability and consistency.
 
@@ -64,16 +64,16 @@ TODO: add diagram
 
 ---
 
-## **Integration Points**
+## Integration Points
 
 Nevron integrates multiple components to enable autonomous decision-making and task execution. It connects various tools and modules to create a cohesive system for analyzing market signals, processing news, and taking automated actions.
 
-### **Tools**
+### Tools
 - **Signal Fetching:** Tools for retrieving market signals.
 - **Twitter Publishing:** Automated posting of tweets via the `post_twitter_thread` function.
 - **News Gathering:** Collects news data for further analysis.
 
-### **Modules**
+### Modules
 - **Planning Module:** Provides decision-making support.
 - **Memory Module:** Offers contextual insights based on past events.
 - **LLM Integration:** Leverages large language models for analysis and generation.
@@ -81,11 +81,11 @@ Nevron integrates multiple components to enable autonomous decision-making and t
 
 ---
 
-## **How to Create a New Workflow?**
+## How to Create a New Workflow?
 
 Adding a new workflow to Nevron involves several key steps:
 
-### **Steps to Add a Workflow**
+### Steps to Add a Workflow
 
 1. **Create a New Workflow File**
    - Navigate to `src/workflows/` directory
@@ -170,5 +170,9 @@ WORKFLOW_NAME_SETTING=value
    - Simulate edge cases and failure scenarios to validate error handling.
 
 - **Unit Testing:** Create unit tests to verify the functionality of individual workflow components.
-- Integration Testing: Develop integration tests to ensure smooth interactions with other modules and tools.
-- Edge Case Testing: Simulate edge cases and failure scenarios to validate error handling.
+- **Integration Testing:** Develop integration tests to ensure smooth interactions with other modules and tools.
+- **Edge Case Testing:** Simulate edge cases and failure scenarios to validate error handling.
+
+-----
+
+If you have any questions or need further assistance, please refer to the [FAQ](faq.md) or initiate a discussion on our [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).

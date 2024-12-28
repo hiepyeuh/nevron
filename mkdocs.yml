@@ -1,27 +1,29 @@
-site_name: Core Autonomous Agent
-site_description: Official documentation for the Core Autonomous Agent | Made by Neurobro
+site_name: Nevron
+site_description: Official documentation for the Nevron AI Agent | Made by Neurobro
 site_author: Neurobro
 theme:
   name: material
   palette: 
     # Palette toggle for light mode
     - scheme: default
-      primary: indigo
-      accent: pink
+      primary: deep purple
+      accent: teal
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
 
     # Palette toggle for dark mode
     - scheme: slate
-      primary: indigo
-      accent: yellow
+      primary: deep purple
+      accent: cyan
       toggle:
         icon: material/weather-night
         name: Switch to light mode
   font:
     text: Inter
     code: JetBrains Mono
+  favicon: assets/favicon.ico
+  logo: assets/logo.png
 
 nav:
   - 🏠 Home: index.md  
@@ -38,7 +40,7 @@ nav:
       - Contribution: development/contribution.md
       - Configuration: development/configuration.md
   - FAQ: faq.md
-
+  - Creators: creators.md
 plugins:
   - macros
   - awesome-pages
@@ -58,6 +60,3 @@ markdown_extensions:
   - md_in_html
   - tables
   - footnotes
-
-extra:
-  favicon: assets/favicon.ico

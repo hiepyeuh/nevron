@@ -1,10 +1,12 @@
-# Developer Documentation
+# **Developer Documentation**
+
+![Nevron Header](assets/nevron_header.png)
 
 Learn how to build your first Nevron, an autonomous AI agent in Python.
 
 This framework is designed to be a modular and extensible framework for building autonomous AI agents, which can perform tasks idependently on their own.
 
-Follow this guide to learn how to create your first AI agent.
+Follow this documentation to learn how to create your first Nevron, build your own tools & workflows, and integrate with external services.
 
 ## Overview
 
@@ -12,15 +14,16 @@ Nevron is an open-source framework that support the development, deployment and 
 
 This framework is built on top of:
 
-- [Q-learning](https://en.wikipedia.org/wiki/Q-learning) based decision making
-- LLM-powered intelligence
+- [Python](https://www.python.org/) programming language
+- [Q-learning](https://en.wikipedia.org/wiki/Q-learning) algorithm for decision making
+- State of the art LLM-powered intelligence
 - Modular architecture with planning, feedback, and memory components
 - Integration with external services (Telegram, Twitter, Discord, etc.)
 - Vector-based memory storage using [Chroma](https://www.trychroma.com/) or [Qdrant](https://qdrant.tech/)
 
 -----
 
-## 💎 Core Features
+## Core Features
 
 - **Autonomous Decision Making**: Nevron uses Q-learning algorithm for intelligent decision making
 - **LLM Integration**: Powered by OpenAI & Anthropic Large Language Models
@@ -36,9 +39,9 @@ This framework is built on top of:
 
 -----
 
-## 🧠 Core Components
+## Core Components
 
-### Planning Module
+### 1. Planning Module
 Handles decision-making using Q-learning algorithm to determine optimal actions for the agent.
 
 - **Q-Learning**
@@ -48,12 +51,12 @@ Handles decision-making using Q-learning algorithm to determine optimal actions 
     - Discount factor (PLANNING_GAMMA) 
     - Exploration rate (PLANNING_EPSILON)
 
-### Memory Module
+### 2. Memory Module
 Manages agent's memory using vector storage for efficient context retrieval, which enables the agent to remember and recall previous interactions and events.
 
 - **Multiple Vector Databases Support**
-    - [Qdrant](https://qdrant.tech/) (primary vector database)
-    - [Chroma](https://www.trychroma.com/) (alternative vector database)
+    - [Chroma](https://www.trychroma.com/) (default)
+    - [Qdrant](https://qdrant.tech/) (alternative vector database)
 
 - **Features**
     - Vector embeddings via OpenAI's [text-embedding-3-small](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) model
@@ -68,32 +71,32 @@ Manages agent's memory using vector storage for efficient context retrieval, whi
 
 More about memory module can be found in the [Memory](agent/memory.md) section.
 
-### Feedback Module
+### 3. Feedback Module
 
 Feedback module is responsible for processing action results and updating the Q-learning model for improved decision making.
 
-- **Core Functions**
-  - Collects feedback from action execution
-  - Evaluates action outcomes
-  - Updates Q-learning parameters
-  - Maintains feedback history
+- **Functions**
+    - Collects feedback from action execution
+    - Evaluates action outcomes
+    - Updates Q-learning parameters
+    - Maintains feedback history
 
 - **Integration**
-  - Direct integration with Planning Module
-  - Performance metrics tracking
+    - Direct integration with Planning Module
+    - Performance metrics tracking
 
 More about feedback module can be found in the [Planning](agent/planning.md) section.
 
-### Tools
+### 4. Tools
 
 Nevron supports integrations with external services and APIs for extended functionality & integrations in diferent platforms.
 
 For development purposes, Nevron comes with a set of tools that can be used as a starting point for building your own tools and integrating more complex functionality to your AI agent.
 
 - **Telegram**
-    - Bot integration
+    - Telegram Bot integration
     - Channel/group support
-    - Message formatting
+    - HTML message formatting
 
 - **Twitter**
     - Tweet posting
@@ -106,20 +109,15 @@ For development purposes, Nevron comes with a set of tools that can be used as a
 
 More about tools can be found in the [Tools](agent/tools.md) section.
 
-### LLM Integration
+### 5. LLM Integration
 
 Powers the agent's intelligence and natural language capabilities.
 
 - **Supported Providers**
-  - OpenAI (primary)
-    - gpt-4o for decision making
-    - text-embedding-3-small for embeddings
-  - Anthropic (alternative)
-  
-- **Features**
-  - Context management
-  - Token optimization
-  - Response processing
+    - OpenAI (primary)
+      - gpt-4o for decision making
+      - text-embedding-3-small for embeddings
+    - Anthropic (alternative)
 
 More about LLM integration can be found in the [LLM](agent/llm.md) section.
 
@@ -127,45 +125,18 @@ More about LLM integration can be found in the [LLM](agent/llm.md) section.
 
 ## Getting Started
 
-For setup and development instructions, please refer to our [Quickstart](quickstart.md) file.
+For setup and development instructions, please refer to our [Quickstart](quickstart.md) and setup your first agent in minutes.
 
 -----
 
-## Technical Requirements
+## Creators
 
-- Python 3.12
-- Docker (for Qdrant Vector Database)
-- Various API keys for integrations:
+Nevron was created by [Neurobro](https://neurobro.ai) team. If you want to learn more about us, please visit [Creators](creators.md) page.
 
-```
-ENVIRONMENT=production
-
-# OpenAI
-OPENAI_API_KEY=
-
-# Perplexity
-PERPLEXITY_API_KEY=
-
-# Telegram
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_CHAT_ID=
-
-# Twitter
-TWITTER_BEARER_TOKEN=
-TWITTER_API_KEY=
-TWITTER_API_SECRET_KEY=
-TWITTER_ACCESS_TOKEN=
-TWITTER_ACCESS_TOKEN_SECRET=
-
-# Agent
-AGENT_PERSONALITY=
-AGENT_GOAL=
-AGENT_REST_TIME=
-```
-
+-----
 
 ## Next Steps
 
-- [Quick Start](quickstart.md) → Learn how to create & setup your first autonomous agent
+- [Quickstart](quickstart.md) → Learn how to create & setup your first autonomous agent
 - [Agent](agent/overview.md) → Learn all about Autonomous Agent Framework
 - [FAQ](faq.md) → Find answers to your the common questions

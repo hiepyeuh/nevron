@@ -85,8 +85,10 @@ make run
 
 Nevron comes with two pre-configured workflows which can be used as a starting point:
 
-- `Analyze signal`: Processes and analyzes incoming data
+- `Analyze signal`: Processes and analyzes incoming signal data
 - `Research news`: Gathers and analyzes news using Perplexity API
+
+If you want to create your own workflows, or want to learn more about how the workflows work, please refer to the [Workflows](agent/workflows.md) documentation.
 
 -----
 
@@ -104,3 +106,5 @@ Please refer to the [Agent](agent/overview.md) for more information on how to cu
 - Check logs in the console for detailed error messages
 - Verify Python version: `python --version`
 - Confirm dependencies: `pipenv graph`
+
+If you have any questions or need further assistance, please refer to the [FAQ](faq.md) or initiate a discussion on our [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).

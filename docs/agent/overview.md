@@ -1,10 +1,11 @@
-# Nevron Overview
+# **Nevron Overview**
 
 ## Architecture
 
 Nevron is an autonomous AI agent built with a modular architecture consisting of several key components that work together to enable intelligent decision-making and task execution.
 
-![Architecture Diagram](/assets/architecture.png)
+![Architecture](../assets/architecture.png)
+
 
 ### 1. Planning Module (Q-Learning)
 The Planning Module serves as the decision-making engine, leveraging [Q-Learning](https://en.wikipedia.org/wiki/Q-learning), a model-free reinforcement learning algorithm. It determines intelligent actions based on the current system state and optimal action planning through learned patterns. The module continuously adapts to new data via feedback loops while maintaining state-action value mappings for consistency.
