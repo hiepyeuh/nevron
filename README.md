@@ -1,10 +1,11 @@
-# Autonomous Agent
-[![CI](https://github.com/axioma-ai-labs/aa-core/actions/workflows/main.yml/badge.svg)](https://github.com/axioma-ai-labs/aa-core/actions/workflows/main.yml)
-[![codecov](https://codecov.io/gh/axioma-ai-labs/aa-core/graph/badge.svg?token=krO46pgB7P)](https://codecov.io/gh/axioma-ai-labs/aa-core)
+# Nevron AI Agent
+[![CI](https://github.com/axioma-ai-labs/nevron/actions/workflows/main.yml/badge.svg)](https://github.com/axioma-ai-labs/nevron/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/axioma-ai-labs/nevron/graph/badge.svg?token=krO46pgB7P)](https://codecov.io/gh/axioma-ai-labs/nevron)
 
 ## Table of Contents
 
 - [Overview](#overview)
+- [Documentation](#documentation)
 - [Code structure](#code-structure)
 - [Prebuilt tech features](#prebuilt-tech-features)
 - [Development](#development)
@@ -13,9 +14,9 @@
 
 ## Overview
 
-This is a simple autonomous agent which can perform various tasks on its own.
+Nevron is a framework for building autonomous AI agents.
 
-Description of the agent in bullet points:
+Description of the framework in bullet points:
 - This autonomous agent is designed to perform the tasks on his own. 
 - The core of the agent is implemented by planning, feedback and memory modules. 
 - The real intelligence is powered by LLMs. Currently we support OpenAI and Anthropic.
@@ -27,6 +28,10 @@ Description of the agent in bullet points:
   - Some API for getting news (to be customized)
 
 Some more details about some modules:
+
+## Documentation
+
+Read the documentation at [docs](docs) folder.
 
 ### Planning module
 

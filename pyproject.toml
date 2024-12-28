@@ -3,10 +3,10 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aa-core"
+name = "nevron"
 version = "0.1.0"
 authors = []
-description = "Autonomous Agent Core"
+description = "Nevron AI Agent"
 readme = "README.md"
 keywords = ["agent", "ai"]
 requires-python = ">=3.12"
@@ -17,7 +17,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/axioma-ai-labs/aa-core"
+Homepage = "https://github.com/axioma-ai-labs/nevron"
 Documentation = ""
 
 [tool.mypy]
