@@ -1,6 +1,6 @@
 # Quickstart Guide
 
-This guide will help you get the Autonomous Agent running in 5 simple steps.
+This guide will help you get Nevron, your autonomous AI agent, running in 5 simple steps.
 
 
 ## Prerequisites
@@ -62,9 +62,9 @@ Update `.env`:
 MEMORY_BACKEND_TYPE=qdrant
 ```
 
-### 4. Configure Agent Personality
+### 4. Configure Nevron's Personality
 
-Setup the personality, goals and rest time of the agent depending on your needs.
+Setup the personality, goals and rest time of your agent depending on your needs.
 
 In `.env`:
 ```bash
@@ -73,7 +73,7 @@ AGENT_GOAL="To assist with information gathering and analysis"
 AGENT_REST_TIME=5  # seconds between actions
 ```
 
-### 5. Run the Agent
+### 5. Run Nevron
 
 ```bash
 make run
@@ -83,7 +83,7 @@ make run
 
 ## Available Workflows
 
-The agent comes with two pre-configured workflows which can be used as a starting point:
+Nevron comes with two pre-configured workflows which can be used as a starting point:
 
 - `Analyze signal`: Processes and analyzes incoming data
 - `Research news`: Gathers and analyzes news using Perplexity API

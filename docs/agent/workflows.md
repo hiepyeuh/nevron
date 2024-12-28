@@ -111,7 +111,7 @@ Adding a new workflow to Nevron involves several key steps:
        logger.info("VALIDATING WORKFLOW INPUT") 
    ```
 
-4. **Register with Agent**
+4. **Integrate with Agent**
    ```python
    from src.workflows.new_workflow import NewWorkflow
    
@@ -141,20 +141,19 @@ class NewWorkflow(BaseWorkflow):
         pass
 ```
 
-## Configuration
+6. **Test the Workflow**
+
+```python
+   workflow = NewWorkflow()
+   workflow.execute()
+```
 
 ### Environment Variables
 Workflow-specific settings can be configured through:
 
+```
 WORKFLOW_NAME_SETTING=value
-
-### Runtime Configuration
-Workflows can support runtime adjustments such as:
-
-- Adjustable parameters (e.g., thresholds, timeouts).
-- Tool selection (e.g., specific APIs or external integrations).
-- Execution options (e.g., enabling/disabling certain steps).
-
+```
 
 ### Best Practices
 
@@ -173,11 +172,3 @@ Workflows can support runtime adjustments such as:
 - **Unit Testing:** Create unit tests to verify the functionality of individual workflow components.
 - Integration Testing: Develop integration tests to ensure smooth interactions with other modules and tools.
 - Edge Case Testing: Simulate edge cases and failure scenarios to validate error handling.
-
-
-## Future Enhancements
-
-Planned workflows:
-- Perplexity research integration
-- Enhanced news analysis
-- Additional signal processing
