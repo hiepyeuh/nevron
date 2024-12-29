@@ -20,7 +20,7 @@ To be able to run the agent, you need to have the following:
 
 ```bash
 # clone the repository
-git clone https://github.com/axioma-ai-labs/aa-core.git
+git clone https://github.com/axioma-ai-labs/nevron.git
 cd aa-core
 
 # install dependencies
