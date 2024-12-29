@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d0b71ab8568476a12175389f8a079067e44564993db76f263657a1268495b9f3"
+            "sha256": "97ddba8ec8caa64371f836c2ea849366c5ae5fa7dae645fe5f79018cc48fafea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -886,6 +886,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==6.4.5"
+        },
+        "iniconfig": {
+            "hashes": [
+                "sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3",
+                "sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==2.0.0"
         },
         "jinja2": {
             "hashes": [
@@ -1921,6 +1929,14 @@
             "markers": "python_version >= '3.8'",
             "version": "==4.3.6"
         },
+        "pluggy": {
+            "hashes": [
+                "sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1",
+                "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==1.5.0"
+        },
         "portalocker": {
             "hashes": [
                 "sha256:53a5984ebc86a025552264b459b46a2086e269b21823cb572f8f28ee759e45bf",
@@ -2242,6 +2258,15 @@
             "markers": "python_version >= '3.9'",
             "version": "==4.25.0"
         },
+        "pytest": {
+            "hashes": [
+                "sha256:50e16d954148559c9a74109af1eaf0c945ba2d8f30f0a3d3335edde19788b6f6",
+                "sha256:965370d062bce11e73868e0335abac31b4d3de0e82f4007408d242b4f8610761"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==8.3.4"
+        },
         "python-dateutil": {
             "hashes": [
                 "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3",
@@ -2340,11 +2365,11 @@
                 "http"
             ],
             "hashes": [
-                "sha256:35e8e646f75b7b883b3d2d0ee4c69c5301000bba41c82aa546e985db0f1aeb72",
-                "sha256:b2d17ce18e9e767471368380dd3bbc4a0e3a0e2061fedc9af3542084b48451e0"
+                "sha256:2777e09b3e89bb22bb490384d8b1fa8140f3915287884f18984f7031a346aba5",
+                "sha256:a0ae500a46a679ff3521ba3f1f1cf3d72b57090a768cec65fc317066bcbac1e6"
             ],
-            "markers": "python_version >= '3.8'",
-            "version": "==1.12.1"
+            "markers": "python_version >= '3.9'",
+            "version": "==1.12.2"
         },
         "rapidfuzz": {
             "hashes": [

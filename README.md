@@ -197,9 +197,9 @@ Here is the list of the settings you can configure:
 - `MEMORY_VECTOR_SIZE` - the vector size of the memory backend. This is used only for Qdrant. Chroma uses automatically calculated vector size.
 - `MEMORY_PERSIST_DIRECTORY` - the directory to persist the memory backend. This is used only for Chroma.
 - `LLM_PROVIDER` - the type of the LLM provider ("openai", "anthropic")
-- `ANTHROPIC_API_KEY` - the API key for the Anthropic API. This is used only for Anthropic.
+- `ANTHROPIC_API_KEY` - the API key for the [Anthropic API](https://www.anthropic.com/api). This is used only for Anthropic. 
 - `ANTHROPIC_MODEL` - the model to use for the Anthropic API. This is used only for Anthropic.
-- `OPENAI_API_KEY` - the API key for the OpenAI API. This is used only for OpenAI.
+- `OPENAI_API_KEY` - the API key for the [OpenAI API](https://openai.com/index/openai-api/). This is used only for OpenAI.
 - `OPENAI_MODEL` - the model to use for the OpenAI API. This is used only for OpenAI.
 - `OPENAI_EMBEDDING_MODEL` - the model to use for the OpenAI embedding API. We use embedding model for the memory module.
 
@@ -217,13 +217,13 @@ Here is the list of the settings you can configure:
 - `TWITTER_API_SECRET_KEY` - the API secret key for the Twitter API.
 - `TWITTER_ACCESS_TOKEN` - the access token for the Twitter API.
 - `TWITTER_ACCESS_TOKEN_SECRET` - the access token secret for the Twitter API.
-- `PERPLEXITY_API_KEY` - the API key for the Perplexity API.
+- `PERPLEXITY_API_KEY` - the API key for the [Perplexity API].
 - `PERPLEXITY_ENDPOINT` - the endpoint for the Perplexity API.
 
 
 ## Contributing
 
-Contributions are welcome! Please follow the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
+Contributions are welcome! Please follow the [CONTRIBUTING](CONTRIBUTING.md) file for more information.
 
 ## License
 
