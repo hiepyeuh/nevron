@@ -13,7 +13,7 @@ async def analyze_news_workflow(news: str) -> Optional[str]:
     try:
         logger.info("Analyzing news...")
         # Get recent news context using Perplexity
-        context = await search_with_perplexity("Latest cryptocurrency news")
+        context = await search_with_perplexity("Latest crypto news")
 
         # Prepare LLM prompt
         llm = LLM()

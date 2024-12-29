@@ -1,0 +1,53 @@
+# Version control
+.git
+.gitignore
+.github
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+
+# Project specific
+.github/
+logs/*
+temp/*
+cache/*
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+codecov.yml
+coverage.lcov
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Documentation
+assets/*
+README.md
+CHANGELOG.md
+docs/
+*.md
+
+# Development/Testing
+tests/
+.env.dev

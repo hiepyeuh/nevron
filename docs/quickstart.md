@@ -20,7 +20,7 @@ To be able to run the agent, you need to have the following:
 
 ```bash
 # clone the repository
-git clone https://github.com/axioma-ai-labs/aa-core.git
+git clone https://github.com/axioma-ai-labs/nevron.git
 cd aa-core
 
 # install dependencies
@@ -37,8 +37,24 @@ cp .env.dev .env
 Required environment variables:
 ```bash
 OPENAI_API_KEY=your_key_here    # Required for embeddings
-PROJECT_NAME=my_agent           # Name your agent
-ENVIRONMENT=development        # Set environment
+ENVIRONMENT=development         # Set environment (development or production)
+
+# Perplexity API   (optional)
+PERPLEXITY_API_KEY=
+
+# Coinstats API   (optional)
+COINSTATS_API_KEY=
+
+# Telegram   (optional)
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+
+# Twitter   (optional)
+TWITTER_BEARER_TOKEN=
+TWITTER_API_KEY=
+TWITTER_API_SECRET_KEY=
+TWITTER_ACCESS_TOKEN=
+TWITTER_ACCESS_TOKEN_SECRET=
 ```
 
 ### 3. Choose Memory Backend
@@ -70,7 +86,7 @@ In `.env`:
 ```bash
 AGENT_PERSONALITY="A helpful AI assistant focused on research and analysis"
 AGENT_GOAL="To assist with information gathering and analysis"
-AGENT_REST_TIME=5  # seconds between actions
+AGENT_REST_TIME=300  # seconds between actions
 ```
 
 ### 5. Run Nevron

@@ -45,7 +45,7 @@ async def test_analyze_news_success(mock_workflow_logger):
 
     # assert:
     assert result == tweet_id
-    mock_perplexity.assert_called_once_with("Latest cryptocurrency news")
+    mock_perplexity.assert_called_once_with("Latest crypto news")
     mock_llm.generate_response.assert_called_once()
     mock_post.assert_called_once_with(tweets={"tweet1": tweet_text})
     mock_info.assert_any_call("Analyzing news...")
