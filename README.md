@@ -5,8 +5,8 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Code structure](#code-structure)
-- [Prebuilt tech features](#prebuilt-tech-features)
+- [Code Structure](#code-structure)
+- [Prebuilt Tech Features](#prebuilt-tech-features)
 - [Development](#development)
 - [Contributing](#contributing)
 - [License](#license)
@@ -16,6 +16,7 @@
 This is a simple autonomous agent which can perform various tasks on its own.
 
 Description of the agent in bullet points:
+
 - This autonomous agent is designed to perform the tasks on his own. 
 - The core of the agent is implemented by planning, feedback and memory modules. 
 - The real intelligence is powered by LLMs. Currently we support OpenAI and Anthropic.
@@ -26,30 +27,11 @@ Description of the agent in bullet points:
   - Perplexity for research
   - Some API for getting news (to be customized)
 
-Some more details about some modules:
+## Documentation
 
-### Planning module
+You can find the documentation in the [docs](docs) folder, as well as on the official Nevron Docs website.
 
-The planning module is responsible for making decisions and planning the next action. It uses the Q-learning algorithm to make decisions. The details can be found in code at the [planning_module.py](src/planning/planning_module.py) file.
-
-### Feedback module
-
-The feedback module is responsible for providing feedback to the agent and updating the Q-learning model (in Planning module). It uses the feedback from the previous action, such as the result of the action and type of the action, to evaluate the result of the action and give this result to the Planning module (to update the Q-learning model). The details can be found in code at the [feedback_module.py](src/feedback/feedback_module.py) file.
-
-### Memory module
-
-The memory module is responsible for storing the memories of the agent: what actions were performed, what was the result of the action, etc. Currently we provide Chroma and Qdrant as a memory backend. The details can be found in code at the [memory_module.py](src/memory/memory_module.py) file.  
-
-### Workflows
-
-The workflows are responsible for stating "actions" to the agent. The details can be found in code at the [workflows](src/workflows) folder. This is the place where you define what actually the agent will perform. Currently, we implement the following workflows:
-
-- Analyze signal
-- Research news
-
-See the code for more details.
-
-## Code structure
+## Code Structure
 
 The code can be found in the [src](src) folder.
 
