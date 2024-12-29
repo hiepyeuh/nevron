@@ -3,26 +3,23 @@ from typing import Optional
 from loguru import logger
 
 from src.llm.llm import LLM
-from src.memory.memory_module import MemoryModule, get_memory_module
+from src.tools.perplexity import search_with_perplexity
 from src.tools.twitter import post_twitter_thread
 
 
-async def analyze_news_workflow(
-    news: str, memory: MemoryModule = get_memory_module()
-) -> Optional[str]:
+async def analyze_news_workflow(news: str) -> Optional[str]:
     """Workflow for analyzing news and posting to Twitter."""
 
     try:
         logger.info("Analyzing news...")
-        # Retrieve recent memory for context
-        recent_memories = await memory.search("recent events", top_k=3)
-        context = "\n".join([f"- {mem['event']}: {mem['outcome']}" for mem in recent_memories])
+        # Get recent news context using Perplexity
+        context = await search_with_perplexity("Latest cryptocurrency news")
 
         # Prepare LLM prompt
         llm = LLM()
         user_prompt = (
-            f"Context:\n{context}\n\nNews:\n{news}\n\n"
-            "Analyze the news and provide insights."
+            f"Context from recent news:\n{context}\n\nNews to analyze:\n{news}\n\n"
+            "Analyze the news and provide insights. "
             "Finally make a concise tweet about the news with a maximum of 280 characters."
         )
         messages = [{"role": "user", "content": user_prompt}]

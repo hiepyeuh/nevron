@@ -8,13 +8,8 @@ from telegram.error import TelegramError
 from src.core.config import settings
 from src.core.exceptions import TelegramError as TelegramPostError
 
-#: Telegram bot token
-TELEGRAM_BOT_TOKEN = settings.TELEGRAM_BOT_TOKEN
-#: Telegram chat ID
-TELEGRAM_CHAT_ID = settings.TELEGRAM_CHAT_ID
-
 # Initialize the bot
-bot = Bot(token=TELEGRAM_BOT_TOKEN)
+bot = Bot(token=settings.TELEGRAM_BOT_TOKEN)
 
 
 def split_long_message(message: str, chunk_size: int = MessageLimit.MAX_TEXT_LENGTH) -> List[str]:
@@ -40,7 +35,7 @@ def split_long_message(message: str, chunk_size: int = MessageLimit.MAX_TEXT_LEN
     return chunks
 
 
-async def post_summary_to_telegram(summary_html: str) -> List[int]:
+async def post_summary_to_telegram(summary_html: str, bot: Bot = bot) -> List[int]:
     """
     Post an HTML-formatted message to the Telegram channel.
     If the message is too long, it will be split into multiple messages.
@@ -60,7 +55,7 @@ async def post_summary_to_telegram(summary_html: str) -> List[int]:
 
         for chunk in message_chunks:
             message = await bot.send_message(
-                chat_id=TELEGRAM_CHAT_ID,
+                chat_id=settings.TELEGRAM_CHAT_ID,
                 text=chunk,
                 parse_mode=ParseMode.HTML,
                 disable_web_page_preview=False,
