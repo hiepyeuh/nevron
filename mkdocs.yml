@@ -6,7 +6,7 @@ theme:
   palette: 
     # Palette toggle for light mode
     - scheme: default
-      primary: deep purple
+      primary: indigo
       accent: teal
       toggle:
         icon: material/weather-sunny
@@ -14,7 +14,7 @@ theme:
 
     # Palette toggle for dark mode
     - scheme: slate
-      primary: deep purple
+      primary: indigo
       accent: cyan
       toggle:
         icon: material/weather-night
@@ -37,13 +37,25 @@ nav:
       - Planning: agent/planning.md
       - Feedback: agent/feedback.md
   - Deployment: deployment.md
-  - Code: https://github.com/axioma-ai-labs/nevron
+  - Source Code: https://github.com/axioma-ai-labs/nevron
   - Discussions: https://github.com/axioma-ai-labs/nevron/discussions
   - About: about.md
 
 plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+      lang:
+        - en
+      prebuild_index: true
+      indexing: 'full'
+  - tags
   - macros
   - awesome-pages
+
+extra:
+  search:
+    language: 'en'
+    tokenizer: '[\s\-\.]+'
 
 markdown_extensions:
   - codehilite
