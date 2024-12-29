@@ -1,16 +1,16 @@
 # Security Policy
 
-## ⚠️ Proprietary Software Notice
+## 🔒 Security Notice
 
-This is proprietary software. All security vulnerabilities should be treated as confidential and reported directly to the maintainers.
+This is open-source software licensed under the Nevron Public License (NPL). While the code is publicly available, security vulnerabilities should still be reported responsibly to protect users of the software.
 
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability within this project, please follow these steps:
 
-1. **DO NOT** disclose the vulnerability publicly
-2. **DO NOT** create a public GitHub issue
-3. Contact the maintainers directly:
+1. **DO NOT** disclose the vulnerability publicly until it has been addressed
+2. Create a private security advisory through GitHub's Security tab
+3. Alternatively, contact the maintainers directly:
    - Email: axioma.ai.labs@gmail.com
    - GitHub: @gromdimon
 
@@ -47,6 +47,8 @@ When reporting a vulnerability, please include:
    - Follow secure coding guidelines
    - Never commit sensitive data
    - Use strong authentication methods
+   - Ensure your contributions don't introduce security vulnerabilities
+   - Follow the NPL attribution requirements
 
 2. **Dependency Management**
    - Keep dependencies up to date
@@ -72,9 +74,10 @@ In case of a security incident:
 All contributors must comply with:
 
 1. This security policy
-2. Data protection regulations
-3. Industry security standards
-4. Company security guidelines
+2. The Nevron Public License (NPL)
+3. Data protection regulations
+4. Industry security standards
+5. Company security guidelines
 
 ## Updates to This Policy
 
