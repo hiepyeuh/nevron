@@ -1,88 +1,69 @@
-# Agent Overview
+# **Nevron Overview**
 
 ## Architecture
 
-The autonomous agent is built with a modular architecture consisting of several key components that work together to enable intelligent decision-making and task execution.
+Nevron is an autonomous AI agent built with a modular architecture consisting of several key components that work together to enable intelligent decision-making and task execution.
 
-```
-┌─────────────────┐     ┌──────────────┐     ┌──────────────┐
-│  Planning Module│◄────┤Feedback Module│◄────│   Workflows  │
-│   (Q-learning)  │     │              │     │              │
-└────────┬────────┘     └──────────────┘     └──────┬───────┘
-         │                                          │
-         │                                         │
-         ▼                                         ▼
-┌─────────────────┐                        ┌──────────────┐
-│  Memory Module  │◄───────────────────────│    Tools     │
-│    (Qdrant)     │                        │              │
-└─────────────────┘                        └──────────────┘
-```
+![Architecture](../assets/architecture.png)
 
-## Core Components
 
-### Planning Module
-- Implements Q-learning algorithm for decision making
-- Maintains action-value mappings
-- Selects optimal actions based on current state
-- Located in `src/planning/planning_module.py`
+### 1. Planning Module (Q-Learning)
+The Planning Module serves as the decision-making engine, leveraging [Q-Learning](https://en.wikipedia.org/wiki/Q-learning), a model-free reinforcement learning algorithm. It determines intelligent actions based on the current system state and optimal action planning through learned patterns. The module continuously adapts to new data via feedback loops while maintaining state-action value mappings for consistency.
 
-### Memory Module
-- Uses Qdrant for vector storage
-- Stores action history and results
-- Enables context-aware decision making
-- Located in `src/memory/memory_module.py`
+### 2. Feedback Module
+The Feedback Module bridges planning and execution by processing the outcomes of system actions. It evaluates the outcomes of the actions and updates the Q-learning model to improve decision-making.
 
-### Feedback Module
-- Evaluates action outcomes
-- Updates Q-learning model
-- Provides performance metrics
-- Located in `src/feedback/feedback_module.py`
+### 3. Workflows
+Workflows act as the execution layer, translating high-level plans into actionable steps. This module manages task sequences and dependencies. It provides standardized operation patterns, maintaining consistency and efficiency throughout the system.
 
-### Workflows
-- Define task execution patterns
-- Implement business logic
-- Current workflows:
-  - Signal analysis
-  - News research
-- Located in `src/workflows/`
+Using workflows, Nevron can perform tasks such as **signal analysis** or *news research*.
 
-### Tools
-- External service integrations
-- Implemented tools:
-  - Telegram messaging
-  - Twitter interaction
-- Planned tools:
-  - News API
-  - Perplexity research
-- Located in `src/tools/`
+### 4. Tools
+The Tools module represents the operational toolkit, executing workflow tasks via integrations. It interfaces seamlessly with external services and APIs to deliver concrete implementation capabilities. 
+
+This enables effective real-world interactions such as sending messages to **Telegram** or **Twitter**.
+
+### 5. Memory Module (Chroma)
+The Memory Module, powered by [Chroma](https://www.trychroma.com/), serves as a sophisticated vector storage system for the platform. 
+
+It maintains a persistent history of states and actions, facilitating efficient context retrieval. By storing rewards and learning patterns, it optimizes performance through Qdrant’s advanced vector database capabilities.
+
+Alternative to Qdrant, Chroma is a vector database that is easier to setup and use.
+
+-----
 
 ## Decision Making Process
 
 1. **State Assessment**
-   - Agent evaluates current context
-   - Retrieves relevant memories
-   - Analyzes available actions
+      - Nevron evaluates current context
+      - Retrieves relevant memories
+      - Analyzes available actions
 
 2. **Action Selection**
-   - Q-learning model selects optimal action
-   - Based on historical performance
-   - Considers current state
+      - Q-learning model selects optimal action
+      - Based on historical performance
+      - Considers current state
 
 3. **Execution**
-   - Selected workflow is triggered
-   - Tools are utilized as needed
-   - Results are captured
+      - Selected workflow is triggered
+      - Tools are utilized as needed
+      - Results are captured
 
 4. **Feedback Loop**
-   - Action outcomes are evaluated
-   - Q-learning model is updated
-   - Memory is stored for future reference
+      - Action outcomes are evaluated
+      - Q-learning model is updated
+      - Memory is stored for future reference
 
 ## Configuration
 
-The agent's behavior can be configured through:
+The agent's behavior can be configured via:
+
 - Environment variables
 - Configuration files
 - Q-learning parameters
+- Workflows
+- Tools
 
-For detailed setup instructions, refer to the [README](../../README.md).
+-----
+
+If you have any questions or need further assistance, please refer to the [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).
