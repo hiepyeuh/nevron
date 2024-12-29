@@ -4,7 +4,7 @@ Large Language Models are the backbone of the Autonomous Agent. They are the cor
 
 ## Implementation
 
-The LLM integration is primarily handled through the `src/llm` module, which provides:
+The LLM integration is primarily handled through the `src/llm` directory, which provides:
 
 - API interaction with OpenAI/Anthropic models
 - Embeddings generation for memory storage
@@ -62,8 +62,6 @@ OPENAI_EMBEDDING_MODEL=text-embedding-3-large # or other supported embedding mod
 
 We're planning to add support for additional LLM providers, advanced prompt engineering, fine-tuning capabilities, and enhanced error handling in the nearest future.
 
-Stay tuned for updates! ⚡️
-
 -----
 
-If you have any questions or need further assistance, please refer to the [FAQ](faq.md) or initiate a discussion on our [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).
+If you have any questions or need further assistance, please refer to the [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).

@@ -2,57 +2,67 @@
 
 ## Overview
 
-The Planning Module is a core component of the Nevron autonomous AI agent. It uses [Q-learning](https://en.wikipedia.org/wiki/Q-learning), a model-free reinforcement learning algorithm, to make intelligent decisions based on the current system state. 
+The Planning Module is a critical component of the Nevron autonomous AI agent. It leverages [Q-learning](https://en.wikipedia.org/wiki/Q-learning), a model-free reinforcement learning algorithm, to make intelligent decisions based on the current system state.
 
-The module continuously adapts to new data via feedback loops while maintaining state-action value mappings for consistency.
+Key capabilities include:
 
-At its core, the Planning Module:
+- **Learning from experience**: Adapts behavior based on feedback from the environment.
+- **Balancing exploration and exploitation**: Chooses between trying new actions (exploration) and relying on known effective actions (exploitation).
+- **Planning for the future**: Prioritizes long-term success while considering immediate rewards.
 
-- **Learns from experience**: It adapts its behavior based on feedback from the environment.
-- **Balances exploration & exploitation**: It decides when to try new actions (exploration) and when to stick with actions it knows work well (exploitation).
-- **Plans for the future**: It prioritizes long-term success while still considering immediate rewards.
+The module continuously evolves by adapting to new data through feedback loops, while maintaining consistent state-action value mappings.
 
------
+The Planning Module is implemented in `src/planning/planning_module.py`.
+---
 
 ## How It Works
 
-The Planning Module empowers the AI agent with sophisticated decision-making capabilities. Through continuous updates to the Q-table after each action, the agent refines and improves its decision-making process based on accumulated experience. 
+The Planning Module empowers the AI agent with sophisticated decision-making capabilities. It utilizes a **Q-table** to record and update state-action value mappings, which guide the agent's decisions. This process enables the agent to refine its behavior through accumulated experience.
 
-When environmental conditions change, the agent demonstrates adaptability by swiftly learning new behavioral patterns through dynamic Q-table adjustments.
+Key functionalities include:
 
-One of the key strengths is enabling autonomous operations - the agent can make informed decisions independently without requiring constant human oversight. Additionally, the module excels at managing complexity by helping the agent navigate and prioritize decisions effectively, even in environments with numerous possible states and actions.
+1. **Dynamic Adaptability**: When environmental conditions change, the module quickly updates the Q-table to learn new behavioral patterns.
 
-In a nutshell, the **Q-table** is the memory of the Planning Module. It keeps track of:
+2. **Autonomous Operations**: The agent independently makes informed decisions, reducing the need for constant human intervention.
 
-- Each state the agent encounters.
-- The actions available in that state.
-- The expected reward for taking each action.
+3. **Managing Complexity**: Effectively navigates and prioritizes decisions in environments with numerous states and actions.
 
-Over time, this table grows and becomes the agent’s primary reference for decision-making.
+The **Q-table** acts as the module's memory, tracking:
 
------
+- States encountered by the agent.
+- Available actions for each state.
+- Expected rewards for each action.
+
+Over time, this table becomes the primary reference for decision-making, ensuring the agent operates effectively in both familiar and new situations.
+
+---
 
 ## Core Components
 
-### Configuration Parameters
+The Planning Module's behavior is controlled by several configuration parameters that define its learning dynamics and decision-making capabilities. These parameters are categorized into:
 
-The Planning Module's behavior is governed by several key configuration parameters that define its learning dynamics and decision-making capabilities.
+#### Core Parameters
 
-All the parameters can be divided into two groups:
+- **`actions`**: Defines the action space available to the agent, typically using the `AgentAction` enumeration to ensure a comprehensive list of permitted actions.
+- **`q_table_path`**: Specifies the file path for saving and loading the Q-table, enabling state preservation across sessions.
 
-**Core Parameters**
+#### Learning Parameters
 
-- `actions`: Defines the action space available to the agent through a comprehensive list of permitted actions. By default, utilizes the `AgentAction` enumeration.
-- `q_table_path`: Specifies the persistence location for the Q-learning table, enabling state preservation across sessions.
+- **`planning_alpha` (Learning Rate)**:
+    - Controls how quickly the agent learns from new experiences.
+    - Higher values (e.g., 0.9): Faster learning but potentially less stability.
+    - Lower values (e.g., 0.1): Slower but more stable learning.
 
-**Learning Parameters** 
+- **`planning_gamma` (Discount Factor)**:
+    - Balances the importance of future rewards versus immediate ones.
+    - Values closer to 1: Focus on long-term consequences.
+    - Lower values (e.g., 0.5): Emphasis on immediate rewards.
 
-- `planning_alpha`: (Learning Rate): Controls how quickly the agent learns from new experiences. A higher value (e.g. 0.9) means faster learning but potential instability, while a lower value (e.g. 0.1) means slower but more stable learning.
+- **`planning_epsilon` (Exploration Rate)**:
+    - Determines the balance between exploration (trying new actions) and exploitation (sticking to known strategies).
+    - Higher values: Encourages trying new actions in uncertain environments.
+    - Lower values: Relies on proven strategies in well-understood scenarios.
 
-- `planning_gamma`: (Discount Factor): Determines how much the agent values future rewards vs immediate rewards. Values closer to 1 make the agent consider long-term consequences, while lower values like 0.5 make it focus on immediate rewards.
+---
 
-- `planning_epsilon`: (Exploration Rate): Controls the balance between exploring new actions vs exploiting known good actions. Higher values encourage trying new things in uncertain environments, while lower values stick to proven strategies in well-understood situations.
-
------
-
-If you have any questions or need further assistance, please refer to the [FAQ](faq.md) or initiate a discussion on our [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).
+If you have any questions or need further assistance, please refer to the [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).

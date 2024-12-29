@@ -63,3 +63,7 @@ The agent's behavior can be configured via:
 - Q-learning parameters
 - Workflows
 - Tools
+
+-----
+
+If you have any questions or need further assistance, please refer to the [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).

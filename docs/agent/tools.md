@@ -2,7 +2,7 @@
 
 ## Overview
 
-Tools are integral components that empower Nevron to interact with external services and execute specific actions. Each tool is designed to handle a distinct functionality, enhancing the agent's versatility and capability. Tools act as modular utilities that can be seamlessly integrated into workflows to perform specialized tasks. They enable connectivity with external services, third-party APIs, search engines, and custom functions, making Nevron highly adaptable and efficient.
+Tools are integral components that empower Nevron to interact with external services and execute specific actions. Each tool is designed to handle distinct functionality, enhancing the agent's versatility and capability. Tools act as modular utilities that can be seamlessly integrated into workflows to perform specialized tasks. They enable connectivity with external services, third-party APIs, search engines, and custom functions, making Nevron highly adaptable and efficient.
 
 All tools are organized within the `src/tools/` directory.
 
@@ -12,13 +12,13 @@ All tools are organized within the `src/tools/` directory.
 
 Tools in Nevron are specialized modules that handle specific tasks within the system, integrating with workflows to provide seamless interactions with external platforms. Here's how the tools work at a high level:
 
-1. **Integration with Workflows:**  
+1. **Integration with Workflows:**
    Tools serve as reusable components that workflows rely on for executing key tasks such as publishing content, fetching data, or processing input.
 
-2. **Purpose-Built Functionality:**  
+2. **Purpose-Built Functionality:**
    Each tool is uniquely designed to address a specific need, such as interacting with Twitter, Telegram, or external APIs. This ensures workflows remain focused and efficient.
 
-3. **Technical Features:**  
+3. **Technical Features:**
    All tools share the following core capabilities:
    - **Error Handling:** Tools catch and log errors clearly, ensuring smooth operation.
    - **Logging:** Use `loguru` for consistent, detailed logs.
@@ -40,14 +40,14 @@ The Twitter tool automates content publishing to Twitter using both v1.1 and v2 
 
 #### How It Works:
 1. **For Media:**
-   - Downloads the image.
-   - Converts it to grayscale.
-   - Uploads it to Twitter.
+      - Downloads the image.
+      - Converts it to grayscale.
+      - Uploads it to Twitter.
 2. **For Tweet Threads:**
-   - Posts tweets sequentially, linking them together as a thread.
-   - Delays are added between posts to avoid API rate limits.
+      - Posts tweets sequentially, linking them together as a thread.
+      - Delays are added between posts to avoid API rate limits.
 3. **Output:**
-   - Returns the status of each posted tweet.
+      - Returns the status of each posted tweet.
 
 ---
 
@@ -81,21 +81,30 @@ The Perplexity tool leverages AI to search for cryptocurrency-related news using
 
 ---
 
-## Adding a New Tool
+## How to Add a New Tool?
 
 Adding a new tool to Nevron is a straightforward process. Follow these steps:
 
-1. **Create a New File:**  
+1. **Create a New File:**
    Add a new Python file in the `src/tools/` directory (e.g., `new_tool.py`).
 
-2. **Implement the Tool's Functionality:**  
+2. **Implement the Tool's Functionality:**
    Define the tool's purpose and logic, adhering to Nevron's modular architecture.
 
-3. **Test Thoroughly:**  
+3. **Test Thoroughly:**
    Ensure the tool works as expected by writing and running tests.
 
-4. **Integrate into Workflows:**  
+4. **Integrate into Workflows:**
    Once the tool is ready, it can be imported and used in workflows to enhance functionality.
+
+---
+
+## Best Practices
+
+1. **Error Handling:** Ensure all tools implement robust error handling for smooth operation.
+2. **Logging:** Use `loguru` to maintain detailed and consistent logs across all tools.
+3. **Asynchronous Execution:** Leverage `asyncio` where applicable for non-blocking performance.
+4. **Reusability:** Design tools as modular and reusable components for seamless integration into multiple workflows.
 
 ---
 
@@ -103,6 +112,7 @@ Nevron's tools form the backbone of its ability to automate tasks, interact with
 
 From publishing on social media to conducting advanced AI-driven searches, tools are modular, reusable, and integral to the agent's success.
 
------
+---
 
-If you have any questions or need further assistance, please refer to the [FAQ](faq.md) or initiate a discussion on our [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).
+If you have any questions or need further assistance, please refer to the [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).
+

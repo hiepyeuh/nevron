@@ -27,8 +27,8 @@ theme:
 
 nav:
   - 🏠 Home: index.md  
-  - 🚀 Quickstart: quickstart.md
-  - 🧠 Agent:
+  - Quickstart: quickstart.md
+  - Nevron:
       - Overview: agent/overview.md
       - Workflows: agent/workflows.md
       - LLMs: agent/llm.md
@@ -36,13 +36,10 @@ nav:
       - Memory: agent/memory.md
       - Planning: agent/planning.md
       - Feedback: agent/feedback.md
-  - 🛠️ Development:
-      - Setup: development/setup.md
-      - Contribution: development/contribution.md
-      - Configuration: development/configuration.md
-  - FAQ: faq.md
-  - Discussions: 
-  - Creators: creators.md
+  - Code: https://github.com/axioma-ai-labs/nevron
+  - Discussions: https://github.com/axioma-ai-labs/nevron/discussions
+  - About: about.md
+
 plugins:
   - macros
   - awesome-pages

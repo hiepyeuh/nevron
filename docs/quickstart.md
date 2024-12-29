@@ -107,4 +107,6 @@ Please refer to the [Agent](agent/overview.md) for more information on how to cu
 - Verify Python version: `python --version`
 - Confirm dependencies: `pipenv graph`
 
-If you have any questions or need further assistance, please refer to the [FAQ](faq.md) or initiate a discussion on our [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).
+-----
+
+If you have any questions or need further assistance, please refer to the [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).

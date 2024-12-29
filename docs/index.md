@@ -39,6 +39,12 @@ This framework is built on top of:
 
 -----
 
+## Nevron vs. Other Frameworks
+
+![Nevron vs. Other Frameworks](assets/agent_framework_overview.jpg)
+
+-----
+
 ## Core Components
 
 ### 1. Planning Module
@@ -125,18 +131,12 @@ More about LLM integration can be found in the [LLM](agent/llm.md) section.
 
 ## Getting Started
 
-For setup and development instructions, please refer to our [Quickstart](quickstart.md) and setup your first agent in minutes.
+For setup and development instructions, please refer to our [Quickstart](quickstart.md) and setup your first AI agent in minutes.
 
 -----
 
 ## Creators
 
-Nevron was created by [Neurobro](https://neurobro.ai) team. If you want to learn more about us, please visit [Creators](creators.md) page.
+Nevron was created by [Neurobro](https://neurobro.ai) team. If you want to learn more about Nevron, our core values & team behind it, please visit [About](about.md) page.
 
------
-
-## Next Steps
-
-- [Quickstart](quickstart.md) → Learn how to create & setup your first autonomous agent
-- [Agent](agent/overview.md) → Learn all about Autonomous Agent Framework
-- [FAQ](faq.md) → Find answers to your the common questions
+If you have any questions or need further assistance, please refer to the [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).
