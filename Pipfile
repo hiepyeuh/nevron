@@ -26,6 +26,7 @@ mkdocs-awesome-pages-plugin = "*"
 anthropic = "*"
 chromadb = "*"
 pytest = "*"
+ruff = "*"
 
 [dev-packages]
 mypy = "*"
