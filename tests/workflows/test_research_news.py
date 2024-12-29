@@ -16,17 +16,8 @@ def mock_workflow_logger(monkeypatch):
     return mock_info, mock_error
 
 
-@pytest.fixture
-def mock_memory():
-    """Create a mock memory module."""
-    memory = MagicMock()
-    memory.search = AsyncMock()
-    memory.store = AsyncMock()
-    return memory
-
-
 @pytest.mark.asyncio
-async def test_analyze_news_success(mock_workflow_logger, mock_memory):
+async def test_analyze_news_success(mock_workflow_logger):
     """Test successful news analysis and tweet posting."""
     # arrange:
     mock_info, mock_error = mock_workflow_logger
@@ -34,11 +25,8 @@ async def test_analyze_news_success(mock_workflow_logger, mock_memory):
     tweet_text = "Breaking News:\nTest analysis\n#StayInformed"
     tweet_id = "123456789"
 
-    # Mock memory search for context
-    mock_memory.search.return_value = [
-        {"event": "event1", "outcome": "outcome1"},
-        {"event": "event2", "outcome": "outcome2"},
-    ]
+    # Mock Perplexity search
+    mock_perplexity = AsyncMock(return_value="Recent crypto news context")
 
     # Mock LLM
     mock_llm = AsyncMock()
@@ -48,15 +36,16 @@ async def test_analyze_news_success(mock_workflow_logger, mock_memory):
     mock_post = AsyncMock(return_value=[tweet_id])
 
     with (
+        patch("src.workflows.research_news.search_with_perplexity", mock_perplexity),
         patch("src.workflows.research_news.LLM", return_value=mock_llm),
         patch("src.workflows.research_news.post_twitter_thread", mock_post),
     ):
         # act:
-        result = await analyze_news_workflow(news_content, memory=mock_memory)
+        result = await analyze_news_workflow(news_content)
 
     # assert:
     assert result == tweet_id
-    mock_memory.search.assert_called_once_with("recent events", top_k=3)
+    mock_perplexity.assert_called_once_with("Latest cryptocurrency news")
     mock_llm.generate_response.assert_called_once()
     mock_post.assert_called_once_with(tweets={"tweet1": tweet_text})
     mock_info.assert_any_call("Analyzing news...")
@@ -66,74 +55,62 @@ async def test_analyze_news_success(mock_workflow_logger, mock_memory):
 
 
 @pytest.mark.asyncio
-async def test_analyze_news_no_context(mock_workflow_logger, mock_memory):
-    """Test news analysis when no context is available."""
+async def test_analyze_news_perplexity_error(mock_workflow_logger):
+    """Test error handling when Perplexity search fails."""
     # arrange:
     mock_info, mock_error = mock_workflow_logger
     news_content = "Test news content"
-    tweet_text = "Breaking News:\nTest analysis\n#StayInformed"
-    tweet_id = "123456789"
 
-    # Mock memory search (no context available)
-    mock_memory.search.return_value = []
+    # Mock Perplexity with error
+    mock_perplexity = AsyncMock(side_effect=Exception("Perplexity error"))
 
-    # Mock LLM
-    mock_llm = AsyncMock()
-    mock_llm.generate_response = AsyncMock(return_value="Test analysis")
-
-    # Mock Twitter post
-    mock_post = AsyncMock(return_value=[tweet_id])
-
-    with (
-        patch("src.workflows.research_news.LLM", return_value=mock_llm),
-        patch("src.workflows.research_news.post_twitter_thread", mock_post),
-    ):
+    with patch("src.workflows.research_news.search_with_perplexity", mock_perplexity):
         # act:
-        result = await analyze_news_workflow(news_content, memory=mock_memory)
+        result = await analyze_news_workflow(news_content)
 
     # assert:
-    assert result == tweet_id
-    mock_memory.search.assert_called_once_with("recent events", top_k=3)
-    mock_llm.generate_response.assert_called_once()
-    mock_post.assert_called_once_with(tweets={"tweet1": tweet_text})
-    mock_info.assert_any_call("Analyzing news...")
-    mock_error.assert_not_called()
+    assert result is None
+    mock_perplexity.assert_called_once()
+    mock_error.assert_called_once_with("Error in analyze_news_workflow: Perplexity error")
 
 
 @pytest.mark.asyncio
-async def test_analyze_news_llm_error(mock_workflow_logger, mock_memory):
+async def test_analyze_news_llm_error(mock_workflow_logger):
     """Test error handling when LLM fails."""
     # arrange:
     mock_info, mock_error = mock_workflow_logger
     news_content = "Test news content"
 
-    # Mock memory search
-    mock_memory.search.return_value = [{"event": "event1", "outcome": "outcome1"}]
+    # Mock Perplexity search
+    mock_perplexity = AsyncMock(return_value="Recent crypto news context")
 
     # Mock LLM with error
     mock_llm = AsyncMock()
     mock_llm.generate_response = AsyncMock(side_effect=Exception("LLM error"))
 
-    with patch("src.workflows.research_news.LLM", return_value=mock_llm):
+    with (
+        patch("src.workflows.research_news.search_with_perplexity", mock_perplexity),
+        patch("src.workflows.research_news.LLM", return_value=mock_llm),
+    ):
         # act:
-        result = await analyze_news_workflow(news_content, memory=mock_memory)
+        result = await analyze_news_workflow(news_content)
 
     # assert:
     assert result is None
-    mock_memory.search.assert_called_once()
+    mock_perplexity.assert_called_once()
     mock_llm.generate_response.assert_called_once()
     mock_error.assert_called_once_with("Error in analyze_news_workflow: LLM error")
 
 
 @pytest.mark.asyncio
-async def test_analyze_news_twitter_error(mock_workflow_logger, mock_memory):
+async def test_analyze_news_twitter_error(mock_workflow_logger):
     """Test error handling when Twitter posting fails."""
     # arrange:
     mock_info, mock_error = mock_workflow_logger
     news_content = "Test news content"
 
-    # Mock memory search
-    mock_memory.search.return_value = [{"event": "event1", "outcome": "outcome1"}]
+    # Mock Perplexity search
+    mock_perplexity = AsyncMock(return_value="Recent crypto news context")
 
     # Mock LLM
     mock_llm = AsyncMock()
@@ -143,15 +120,16 @@ async def test_analyze_news_twitter_error(mock_workflow_logger, mock_memory):
     mock_post = AsyncMock(side_effect=Exception("Twitter error"))
 
     with (
+        patch("src.workflows.research_news.search_with_perplexity", mock_perplexity),
         patch("src.workflows.research_news.LLM", return_value=mock_llm),
         patch("src.workflows.research_news.post_twitter_thread", mock_post),
     ):
         # act:
-        result = await analyze_news_workflow(news_content, memory=mock_memory)
+        result = await analyze_news_workflow(news_content)
 
     # assert:
     assert result is None
-    mock_memory.search.assert_called_once()
+    mock_perplexity.assert_called_once()
     mock_llm.generate_response.assert_called_once()
     mock_post.assert_called_once()
     mock_error.assert_called_once_with("Error in analyze_news_workflow: Twitter error")
