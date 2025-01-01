@@ -51,11 +51,11 @@ This framework is built on top of:
 Handles decision-making using Q-learning algorithm to determine optimal actions for the agent.
 
 - **Q-Learning**
-  - Uses state-action value mapping for decision making
-  - Configurable parameters:
-    - Learning rate (PLANNING_ALPHA)
-    - Discount factor (PLANNING_GAMMA) 
-    - Exploration rate (PLANNING_EPSILON)
+    - Uses state-action value mapping for decision making
+    - Configurable parameters:
+        - Learning rate (PLANNING_ALPHA)
+        - Discount factor (PLANNING_GAMMA) 
+        - Exploration rate (PLANNING_EPSILON)
 
 ### 2. Memory Module
 Manages agent's memory using vector storage for efficient context retrieval, which enables the agent to remember and recall previous interactions and events.
@@ -138,5 +138,16 @@ For setup and development instructions, please refer to our [Quickstart](quickst
 ## Creators
 
 Nevron was created by [Neurobro](https://neurobro.ai) team. If you want to learn more about Nevron, our core values & team behind it, please visit [About](about.md) page.
+
+Support by upvoting [Nevron](https://www.producthunt.com/posts/nevron) on Product Hunt.
+
+<a href="https://www.producthunt.com/posts/nevron?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nevron" target="_blank">
+  <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=746855&theme=light" 
+       alt="Nevron - Open source AI agent framework in Python | Product Hunt" 
+       style="width: 250px; height: 54px;" 
+       width="250" 
+       height="54" />
+</a>
+
 
 If you have any questions or need further assistance, please refer to the [GitHub Discussions](https://github.com/axioma-ai-labs/nevron/discussions).
