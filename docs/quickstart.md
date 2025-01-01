@@ -112,7 +112,7 @@ If you want to create your own workflows, or want to learn more about how the wo
 
 For more customization you can add your custom [workflows](agent/workflows.md) and [tools](agent/tools.md), adjust [planning](agent/planning.md) parameters, switch [LLM providers](agent/llm.md), fine-tune the hyper-parameters, etc.
 
-Please refer to the [Agent](agent/overview.md) for more information on how to customize the agent and its behavior.
+Please refer to the [Agent](agent/overview.md) for more information on how to customize the agent, its behavior & personality.
 
 -----
 

@@ -72,32 +72,32 @@ You can deploy the Nevron Docker container to various cloud platforms:
 
 1. Push the image to Amazon ECR
 2. Deploy using:
-   - ECS (Elastic Container Service)
-   - EKS (Elastic Kubernetes Service)
-   - EC2 with Docker installed
+      - ECS (Elastic Container Service)
+      - EKS (Elastic Kubernetes Service)
+      - EC2 with Docker installed
 
 ### Google Cloud
 
 1. Push the image to Google Container Registry
 2. Deploy using:
-   - Google Kubernetes Engine (GKE)
-   - Cloud Run
-   - Compute Engine with Docker installed
+      - Google Kubernetes Engine (GKE)
+      - Cloud Run
+      - Compute Engine with Docker installed
 
 ### Azure
 
 1. Push the image to Azure Container Registry
 2. Deploy using:
-   - Azure Kubernetes Service (AKS)
-   - Azure Container Instances
-   - VM with Docker installed
+      - Azure Kubernetes Service (AKS)
+      - Azure Container Instances
+      - VM with Docker installed
 
 ### Digital Ocean
 
 1. Push the image to Digital Ocean Container Registry
 2. Deploy using:
-   - Digital Ocean Kubernetes
-   - Droplet with Docker installed
+      - Digital Ocean Kubernetes
+      - Droplet with Docker installed
 
 ## Best Practices
 
