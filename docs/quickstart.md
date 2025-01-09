@@ -21,7 +21,7 @@ To be able to run the agent, you need to have the following:
 ```bash
 # clone the repository
 git clone https://github.com/axioma-ai-labs/nevron.git
-cd aa-core
+cd nevron
 
 # install dependencies
 make deps
@@ -36,29 +36,11 @@ cp .env.dev .env
 
 Required environment variables:
 ```bash
-OPENAI_API_KEY=your_key_here    # Required for embeddings
 ENVIRONMENT=development         # Set environment (development or production)
-
-# xAI API   (optional)
-XAI_API_KEY=
-
-# Perplexity API   (optional)
-PERPLEXITY_API_KEY=
-
-# Coinstats API   (optional)
-COINSTATS_API_KEY=
-
-# Telegram   (optional)
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_CHAT_ID=
-
-# Twitter   (optional)
-TWITTER_BEARER_TOKEN=
-TWITTER_API_KEY=
-TWITTER_API_SECRET_KEY=
-TWITTER_ACCESS_TOKEN=
-TWITTER_ACCESS_TOKEN_SECRET=
+OPENAI_API_KEY=your_key_here    # Required for embeddings
 ```
+
+Note, there're many more environment variables you can set! Please, explore the .env.dev file.
 
 ### 3. Choose Memory Backend
 
