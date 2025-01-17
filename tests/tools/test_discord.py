@@ -1,7 +1,7 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
-import pytest
 import discord
+import pytest
 
 from src.core.exceptions import DiscordError
 from src.tools.discord import DiscordBot, DiscordTool
@@ -26,12 +26,12 @@ def mock_discord_bot():
         mock_bot_instance = AsyncMock(spec=DiscordBot)
         mock_bot_instance.start = AsyncMock()
         mock_bot_instance.close = AsyncMock()
-        
+
         # Create a mock channel that inherits from TextChannel
         mock_channel = MagicMock(spec=discord.TextChannel)
         mock_channel.send = AsyncMock(return_value=MagicMock(id=MESSAGE_ID))
         mock_channel.fetch_message = AsyncMock()
-        
+
         mock_bot_instance.get_channel = MagicMock(return_value=mock_channel)
         mock_bot_class.return_value = mock_bot_instance
         yield mock_bot_instance

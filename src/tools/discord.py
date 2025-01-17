@@ -68,16 +68,16 @@ class DiscordTool:
             channel = self.bot.get_channel(channel_id)
             if not channel:
                 raise DiscordError(f"Channel {channel_id} not found")
-            
+
             # Type check for channels that support fetch_message
             if not isinstance(channel, (discord.TextChannel, discord.Thread)):
                 raise DiscordError(f"Channel type {type(channel)} does not support messages")
-            
+
             message = await channel.fetch_message(message_id)
             await message.add_reaction(emoji)
             logger.debug(f"Reaction {emoji} added to message {message_id}")
             return True
-            
+
         except Exception as e:
             error_msg = f"Failed to add reaction: {str(e)}"
             logger.error(error_msg)
@@ -134,15 +134,17 @@ class DiscordTool:
             channel = self.bot.get_channel(channel_id)
             if not channel:
                 raise DiscordError(f"Channel {channel_id} not found")
-            
+
             # Type check for channels that support send
             if not isinstance(channel, (discord.TextChannel, discord.Thread)):
-                raise DiscordError(f"Channel type {type(channel)} does not support sending messages")
-            
+                raise DiscordError(
+                    f"Channel type {type(channel)} does not support sending messages"
+                )
+
             message = await channel.send(content)
             logger.debug(f"Message sent successfully to Discord with ID: {message.id}")
             return message.id
-            
+
         except Exception as e:
             error_msg = f"Failed to send message to Discord: {str(e)}"
             logger.error(error_msg)
