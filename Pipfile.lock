@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "679c61883a55771810b48132ecbafe771f601725a923ff7241f3f39f980c5194"
+            "sha256": "477dac80f6d7a7595a5221c1112821404a323a174744a94687e1f7b931dbdb16"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -2114,6 +2114,12 @@
             "markers": "python_version >= '3.8'",
             "version": "==5.29.3"
         },
+        "pyactiveresource": {
+            "hashes": [
+                "sha256:2f03844652dc206d9a086b0b15564d78dcec55786fa5fe0055dd2119e0dffdd8"
+            ],
+            "version": "==2.2.2"
+        },
         "pyasn1": {
             "hashes": [
                 "sha256:0d632f46f2ba09143da3a8afe9e33fb6f92fa2320ab7e886e2d0f7672af84629",
@@ -2269,6 +2275,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==2.19.1"
+        },
+        "pyjwt": {
+            "hashes": [
+                "sha256:3cc5772eb20009233caf06e9d8a0577824723b44e6648ee0a2aedb6cf9381953",
+                "sha256:dcdd193e30abefd5debf142f9adfcdd2b58004e644f25406ffaebd50bd98dacb"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==2.10.1"
         },
         "pymdown-extensions": {
             "hashes": [
@@ -2703,6 +2717,13 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==1.5.4"
+        },
+        "shopifyapi": {
+            "hashes": [
+                "sha256:d7a903eb8df659aba4b8dce6ad3d8dec0395b1a5f353bf59299eda6aa4fac289"
+            ],
+            "index": "pypi",
+            "version": "==12.7.0"
         },
         "six": {
             "hashes": [

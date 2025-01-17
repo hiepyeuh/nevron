@@ -53,3 +53,9 @@ class CoinstatsError(AgentBaseError):
     """Exception raised when Coinstats API request fails."""
 
     pass
+
+
+class ShopifyError(Exception):
+    """Raised when Shopify API operations fail."""
+
+    pass

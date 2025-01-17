@@ -167,6 +167,12 @@ class Settings(BaseSettings):
     #: WhatsApp API token
     WHATSAPP_API_TOKEN: str = ""
 
+    # --- Shopify settings ---
+
+    SHOPIFY_API_KEY: str = ""
+    SHOPIFY_PASSWORD: str = ""
+    SHOPIFY_STORE_NAME: str = ""
+
     # ==========================
     # Validators
     # ==========================
