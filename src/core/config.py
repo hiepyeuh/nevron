@@ -143,6 +143,14 @@ class Settings(BaseSettings):
     #: Coinstats API key
     COINSTATS_API_KEY: str = ""
 
+    # --- Discord settings ---
+
+    #: Discord bot token
+    DISCORD_BOT_TOKEN: str = ""
+
+    #: Discord channel ID for the user's channel
+    DISCORD_CHANNEL_ID: int = 0
+
     # ==========================
     # Validators
     # ==========================
