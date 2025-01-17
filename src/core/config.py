@@ -173,6 +173,10 @@ class Settings(BaseSettings):
     SHOPIFY_PASSWORD: str = ""
     SHOPIFY_STORE_NAME: str = ""
 
+    # --- Tavily settings ---
+
+    TAVILY_API_KEY: str = ""
+
     # ==========================
     # Validators
     # ==========================
