@@ -31,6 +31,12 @@ class TwitterError(AgentBaseError):
     pass
 
 
+class DiscordError(Exception):
+    """Exception raised when Discord operations fail"""
+
+    pass
+
+
 class APIError(AgentBaseError):
     """Exception raised when API request fails."""
 
