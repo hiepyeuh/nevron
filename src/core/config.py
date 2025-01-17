@@ -151,11 +151,21 @@ class Settings(BaseSettings):
     #: Discord channel ID for the user's channel
     DISCORD_CHANNEL_ID: int = 0
 
+    # --- YouTube settings ---
+
     #: YouTube API token
     YOUTUBE_API_KEY: str = ""
 
     #: YouTube playlist ID
     YOUTUBE_PLAYLIST_ID: str = ""
+
+    # --- WhatsApp settings ---
+
+    #: WhatsApp instance ID
+    WHATSAPP_ID_INSTANCE: str = ""
+
+    #: WhatsApp API token
+    WHATSAPP_API_TOKEN: str = ""
 
     # ==========================
     # Validators
