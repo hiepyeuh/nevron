@@ -1,6 +1,7 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+import discord
 
 from src.core.exceptions import DiscordError
 from src.tools.discord import DiscordBot, DiscordTool
@@ -25,7 +26,13 @@ def mock_discord_bot():
         mock_bot_instance = AsyncMock(spec=DiscordBot)
         mock_bot_instance.start = AsyncMock()
         mock_bot_instance.close = AsyncMock()
-        mock_bot_instance.get_channel = MagicMock()
+        
+        # Create a mock channel that inherits from TextChannel
+        mock_channel = MagicMock(spec=discord.TextChannel)
+        mock_channel.send = AsyncMock(return_value=MagicMock(id=MESSAGE_ID))
+        mock_channel.fetch_message = AsyncMock()
+        
+        mock_bot_instance.get_channel = MagicMock(return_value=mock_channel)
         mock_bot_class.return_value = mock_bot_instance
         yield mock_bot_instance
 
@@ -65,9 +72,8 @@ async def test_send_message_success(discord_tool, mock_discord_bot):
     """Test successfully sending a message to a Discord channel."""
     # Arrange
     content = "Hello, Bot!"
-    mock_channel = MagicMock()
-    mock_channel.send = AsyncMock(return_value=MagicMock(id=987654321))
-    mock_discord_bot.get_channel.return_value = mock_channel
+    mock_channel = mock_discord_bot.get_channel.return_value
+    mock_channel.send.return_value = MagicMock(id=MESSAGE_ID)
 
     # Act
     message_id = await discord_tool.send_message(CHANNEL_ID, content)
@@ -95,16 +101,14 @@ async def test_send_message_channel_not_found(discord_tool, mock_discord_bot):
 async def test_send_message_api_error(discord_tool, mock_discord_bot):
     """Test handling an API error when sending a message."""
     # Arrange
-    channel_id = CHANNEL_ID
     content = "Hello, Discord!"
-    mock_channel = AsyncMock()
+    mock_channel = mock_discord_bot.get_channel.return_value
     mock_channel.send = AsyncMock(side_effect=Exception("API failure"))
-    mock_discord_bot.get_channel.return_value = mock_channel
 
     # Act & Assert
     with pytest.raises(DiscordError, match="Failed to send message to Discord: API failure"):
-        await discord_tool.send_message(channel_id, content)
-    mock_discord_bot.get_channel.assert_called_once_with(channel_id)
+        await discord_tool.send_message(CHANNEL_ID, content)
+    mock_discord_bot.get_channel.assert_called_once_with(CHANNEL_ID)
     mock_channel.send.assert_awaited_once_with(content)
 
 
@@ -164,22 +168,18 @@ async def test_listen_to_messages_with_bot_message(discord_tool, mock_discord_bo
 async def test_add_reaction_success(discord_tool, mock_discord_bot):
     """Test successfully adding a reaction to a message."""
     # Arrange
-    channel_id = CHANNEL_ID
-    message_id = MESSAGE_ID
     emoji = "👍"
-
-    mock_channel = MagicMock()
+    mock_channel = mock_discord_bot.get_channel.return_value
     mock_message = MagicMock()
     mock_message.add_reaction = AsyncMock()
     mock_channel.fetch_message = AsyncMock(return_value=mock_message)
-    mock_discord_bot.get_channel.return_value = mock_channel
 
     # Act
-    result = await discord_tool.add_reaction(channel_id, message_id, emoji)
+    result = await discord_tool.add_reaction(CHANNEL_ID, MESSAGE_ID, emoji)
 
     # Assert
-    mock_discord_bot.get_channel.assert_called_once_with(channel_id)
-    mock_channel.fetch_message.assert_awaited_once_with(message_id)
+    mock_discord_bot.get_channel.assert_called_once_with(CHANNEL_ID)
+    mock_channel.fetch_message.assert_awaited_once_with(MESSAGE_ID)
     mock_message.add_reaction.assert_awaited_once_with(emoji)
     assert result is True
 
