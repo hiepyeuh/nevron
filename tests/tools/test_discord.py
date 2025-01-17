@@ -1,16 +1,15 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-import discord
-from discord.ext import commands
 
 from src.core.exceptions import DiscordError
-from src.tools.discord import DiscordTool, DiscordBot
+from src.tools.discord import DiscordBot, DiscordTool
 
 # Test constants
 TOKEN = "mock-token"
 CHANNEL_ID = 123456789
 MESSAGE_ID = 987654321
+
 
 @pytest.fixture
 def mock_settings(monkeypatch):
@@ -54,7 +53,9 @@ async def test_initialize_bot_failure(discord_tool, mock_discord_bot):
     mock_discord_bot.start = AsyncMock(side_effect=Exception("Initialization failed"))
 
     # Act & Assert
-    with pytest.raises(DiscordError, match="Failed to initialize Discord bot: Initialization failed"):
+    with pytest.raises(
+        DiscordError, match="Failed to initialize Discord bot: Initialization failed"
+    ):
         await discord_tool.initialize_bot()
     mock_discord_bot.start.assert_awaited_once_with(TOKEN)
 
@@ -132,10 +133,7 @@ async def test_listen_to_messages(discord_tool, mock_discord_bot):
     await on_message(mock_message)
 
     # Assert callback was called with correct data
-    callback.assert_awaited_once_with({
-        'username': "TestUser",
-        'content': "Hello Bot"
-    })
+    callback.assert_awaited_once_with({"username": "TestUser", "content": "Hello Bot"})
 
 
 @pytest.mark.asyncio
@@ -145,7 +143,6 @@ async def test_listen_to_messages_with_bot_message(discord_tool, mock_discord_bo
     channel_id = CHANNEL_ID
     callback = AsyncMock()
 
-    
     await discord_tool.listen_to_messages(channel_id, callback)
     # Assert
     assert discord_tool._callback == callback
@@ -162,6 +159,7 @@ async def test_listen_to_messages_with_bot_message(discord_tool, mock_discord_bo
         await event_handler(mock_message)
         callback.assert_not_awaited()
 
+
 @pytest.mark.asyncio
 async def test_add_reaction_success(discord_tool, mock_discord_bot):
     """Test successfully adding a reaction to a message."""
@@ -169,7 +167,7 @@ async def test_add_reaction_success(discord_tool, mock_discord_bot):
     channel_id = CHANNEL_ID
     message_id = MESSAGE_ID
     emoji = "👍"
-    
+
     mock_channel = MagicMock()
     mock_message = MagicMock()
     mock_message.add_reaction = AsyncMock()
@@ -184,7 +182,8 @@ async def test_add_reaction_success(discord_tool, mock_discord_bot):
     mock_channel.fetch_message.assert_awaited_once_with(message_id)
     mock_message.add_reaction.assert_awaited_once_with(emoji)
     assert result is True
-    
+
+
 @pytest.mark.asyncio
 async def test_close_bot(discord_tool, mock_discord_bot):
     """Test closing the Discord bot."""

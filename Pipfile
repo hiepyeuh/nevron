@@ -33,10 +33,10 @@ ruff = "*"
 [dev-packages]
 mypy = "*"
 isort = "*"
-ruff = "*"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
+ruff = "*"
 
 [requires]
 python_version = "3.12"
