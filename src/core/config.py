@@ -151,6 +151,12 @@ class Settings(BaseSettings):
     #: Discord channel ID for the user's channel
     DISCORD_CHANNEL_ID: int = 0
 
+    #: YouTube API token
+    YOUTUBE_API_KEY: str = ""
+
+    #: YouTube playlist ID
+    YOUTUBE_PLAYLIST_ID: str = ""
+
     # ==========================
     # Validators
     # ==========================
