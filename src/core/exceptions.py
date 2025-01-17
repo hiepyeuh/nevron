@@ -37,6 +37,12 @@ class DiscordError(Exception):
     pass
 
 
+class WhatsAppError(AgentBaseError):
+    """Exception raised when posting to Twitter fails."""
+
+    pass
+
+
 class APIError(AgentBaseError):
     """Exception raised when API request fails."""
 
