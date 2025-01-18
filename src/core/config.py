@@ -143,6 +143,62 @@ class Settings(BaseSettings):
     #: Coinstats API key
     COINSTATS_API_KEY: str = ""
 
+    # --- Discord settings ---
+
+    #: Discord bot token
+    DISCORD_BOT_TOKEN: str = ""
+
+    #: Discord channel ID for the user's channel
+    DISCORD_CHANNEL_ID: int = 0
+
+    # --- YouTube settings ---
+
+    #: YouTube API token
+    YOUTUBE_API_KEY: str = ""
+
+    #: YouTube playlist ID
+    YOUTUBE_PLAYLIST_ID: str = ""
+
+    # --- WhatsApp settings ---
+
+    #: WhatsApp instance ID
+    WHATSAPP_ID_INSTANCE: str = ""
+
+    #: WhatsApp API token
+    WHATSAPP_API_TOKEN: str = ""
+
+    # --- Shopify settings ---
+
+    SHOPIFY_API_KEY: str = ""
+    SHOPIFY_PASSWORD: str = ""
+    SHOPIFY_STORE_NAME: str = ""
+
+    # --- Tavily settings ---
+
+    TAVILY_API_KEY: str = ""
+
+    # --- Slack settings ---
+
+    SLACK_BOT_TOKEN: str = ""
+    SLACK_APP_TOKEN: str = ""
+
+    # --- Spotify settings ---
+
+    SPOTIFY_CLIENT_ID: str = ""
+    SPOTIFY_CLIENT_SECRET: str = ""
+    SPOTIFY_REDIRECT_URI: str = ""
+
+    # --- Lens protocol settings ---
+    LENS_API_KEY: str = ""
+    LENS_PROFILE_ID: str = ""
+
+    #: --- Github settings ---
+    GITHUB_TOKEN: str = ""
+
+    # --- llama settings ---
+    LLAMA_MODEL_PATH: str = ""
+    LLAMA_MAX_TOKENS: int = 512
+
     # ==========================
     # Validators
     # ==========================

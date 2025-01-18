@@ -1,5 +1,8 @@
 # **Developer Documentation**
 
+[![CI](https://github.com/axioma-ai-labs/aa-core/actions/workflows/main.yml/badge.svg)](https://github.com/axioma-ai-labs/aa-core/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/axioma-ai-labs/nevron/branch/main/graph/badge.svg?token=krO46pgB7P)](https://codecov.io/gh/axioma-ai-labs/nevron)
+[![Build Docker image](https://github.com/axioma-ai-labs/nevron/actions/workflows/docker.yml/badge.svg)](https://github.com/axioma-ai-labs/nevron/actions/workflows/docker.yml)
 [![Docs](https://img.shields.io/badge/Nevron-Docs-blue)](https://axioma-ai-labs.github.io/nevron/)
 
 ![Nevron Header](assets/nevron_header.png)
@@ -9,6 +12,8 @@ Learn how to build your first Nevron, an autonomous AI agent in Python.
 This framework is designed to be a modular and extensible framework for building autonomous AI agents, which can perform tasks idependently on their own.
 
 Follow this documentation to learn how to create your first Nevron, build your own tools & workflows, and integrate with external services.
+
+> **Note:** This documentation version is for the latest stable version of Nevron. If you are looking for the documentation for the development version, please refer to the github repository. and build the docs locally. More on that in the [Development Setup](development/setup.md) section.
 
 ## Overview
 

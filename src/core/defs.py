@@ -42,3 +42,4 @@ class LLMProviderType(str, Enum):
     OPENAI = "openai"
     ANTHROPIC = "anthropic"
     XAI = "xai"
+    LLAMA = "llama"

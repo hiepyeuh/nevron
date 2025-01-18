@@ -15,7 +15,22 @@ rapidfuzz = "*"
 python-telegram-bot = "*"
 telegramify-markdown = "*"
 tweepy = "*"
+discord = "*" 
+slack-sdk = "*"
+lenspy = "*"
+gql = "*"
+PyGithub = "*"
+GitPython = "*"
+requests-toolbelt = "*"
+google-auth-oauthlib = "*"
+google-auth = "*"
+google-api-python-client = "*"
+whatsapp_api_client_python = "*"
+ShopifyAPI = "*"
+tavily-python = "*"
+aiohttp = "*"
 pillow = "*"
+types-requests = "*"
 lxml-html-clean = "*"
 requests-html = "*"
 qdrant-client = {extras = ["http"], version = "*"}
@@ -28,13 +43,16 @@ chromadb = "*"
 pytest = "*"
 ruff = "*"
 
+
 [dev-packages]
 mypy = "*"
 isort = "*"
-ruff = "*"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
+ruff = "*"
+torch = {version = "*", index = "pypi", extras = ["cpu"]}
+transformers = {version = ">=4.38.0"}
 
 [requires]
 python_version = "3.12"

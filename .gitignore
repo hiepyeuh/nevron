@@ -8,6 +8,8 @@ qdrant_storage/
 persistent_q_table.json
 .coverage
 coverage.lcov
+volumes/
+logs/
 
 # ====== Default gitignore config ======
 

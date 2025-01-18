@@ -4,9 +4,15 @@ on:
   push:
     branches:
       - main
+      - dev
   pull_request:
     branches:
       - main
+      - dev
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: ${{ !contains(github.ref, 'main')}}
 
 jobs:
   Lint:
@@ -67,4 +73,4 @@ jobs:
         with:
           flags: main
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: axioma-ai-labs/aa-core
+          slug: axioma-ai-labs/nevron

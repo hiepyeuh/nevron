@@ -31,6 +31,18 @@ class TwitterError(AgentBaseError):
     pass
 
 
+class DiscordError(Exception):
+    """Exception raised when Discord operations fail"""
+
+    pass
+
+
+class WhatsAppError(AgentBaseError):
+    """Exception raised when posting to Twitter fails."""
+
+    pass
+
+
 class APIError(AgentBaseError):
     """Exception raised when API request fails."""
 
@@ -39,5 +51,23 @@ class APIError(AgentBaseError):
 
 class CoinstatsError(AgentBaseError):
     """Exception raised when Coinstats API request fails."""
+
+    pass
+
+
+class ShopifyError(Exception):
+    """Raised when Shopify API operations fail."""
+
+    pass
+
+
+class SpotifyError(Exception):
+    """Raised when Spotify API operations fail."""
+
+    pass
+
+
+class GitHubError(Exception):
+    """Raised when WhatsApp operations fail"""
 
     pass
