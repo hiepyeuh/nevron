@@ -59,3 +59,9 @@ class ShopifyError(Exception):
     """Raised when Shopify API operations fail."""
 
     pass
+
+
+class SpotifyError(Exception):
+    """Raised when Spotify API operations fail."""
+
+    pass

@@ -182,6 +182,12 @@ class Settings(BaseSettings):
     SLACK_BOT_TOKEN: str = ""
     SLACK_APP_TOKEN: str = ""
 
+    # --- Spotify settings ---
+
+    SPOTIFY_CLIENT_ID: str = ""
+    SPOTIFY_CLIENT_SECRET: str = ""
+    SPOTIFY_REDIRECT_URI: str = ""
+
     # ==========================
     # Validators
     # ==========================
