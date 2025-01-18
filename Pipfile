@@ -37,11 +37,10 @@ mkdocs-material = "*"
 mkdocs-macros-plugin = "*"
 mkdocs-awesome-pages-plugin = "*"
 anthropic = "*"
-chromadb = {version = "==0.6.3", extras = ["cpu"]}
+chromadb = "*"
 pytest = "*"
 ruff = "*"
-torch = ">=2.2.0"
-transformers = ">=4.38.0"
+
 
 [dev-packages]
 mypy = "*"
@@ -50,8 +49,8 @@ pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 ruff = "*"
-torch = ">=2.2.0"
-transformers = ">=4.38.0"
+torch = {version = "*", index = "https://download.pytorch.org/whl/cpu"}
+transformers = {version = ">=4.38.0"}
 
 [requires]
 python_version = "3.12"
