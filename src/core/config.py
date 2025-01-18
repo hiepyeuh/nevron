@@ -192,6 +192,9 @@ class Settings(BaseSettings):
     LENS_API_KEY: str = ""
     LENS_PROFILE_ID: str = ""
 
+    #: --- Github settings ---
+    GITHUB_TOKEN: str = ""
+
     # --- llama settings ---
     LLAMA_MODEL_PATH: str = ""
     LLAMA_MAX_TOKENS: int = 512
