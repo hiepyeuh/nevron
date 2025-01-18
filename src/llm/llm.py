@@ -49,6 +49,8 @@ class LLM:
             return await call_anthropic(messages, **kwargs)
         elif self.provider == LLMProviderType.XAI:
             return await call_xai(messages, **kwargs)
+        elif self.provider == LLMProviderType.LLAMA:
+            return await call_llama(messages, **kwargs)
         else:
             raise LLMError(f"Unknown LLM provider: {self.provider}")
 
