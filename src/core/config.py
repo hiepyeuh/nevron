@@ -188,6 +188,10 @@ class Settings(BaseSettings):
     SPOTIFY_CLIENT_SECRET: str = ""
     SPOTIFY_REDIRECT_URI: str = ""
 
+    # --- llama settings ---
+    LLAMA_MODEL_PATH: str = ""
+    LLAMA_MAX_TOKENS: int = 512
+
     # ==========================
     # Validators
     # ==========================
