@@ -177,6 +177,11 @@ class Settings(BaseSettings):
 
     TAVILY_API_KEY: str = ""
 
+    # --- Slack settings ---
+
+    SLACK_BOT_TOKEN: str = ""
+    SLACK_APP_TOKEN: str = ""
+
     # ==========================
     # Validators
     # ==========================
