@@ -15,10 +15,11 @@ rapidfuzz = "*"
 python-telegram-bot = "*"
 telegramify-markdown = "*"
 tweepy = "*"
-torch = "*"
-transformers = "*"
 discord = "*" 
 slack-sdk = "*"
+lenspy = "*"
+gql = "*"
+requests-toolbelt = "*"
 google-auth-oauthlib = "*"
 google-auth = "*"
 google-api-python-client = "*"
@@ -40,6 +41,7 @@ chromadb = "*"
 pytest = "*"
 ruff = "*"
 
+
 [dev-packages]
 mypy = "*"
 isort = "*"
@@ -47,8 +49,8 @@ pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 ruff = "*"
-torch = ">=2.2.0"
-transformers = ">=4.38.0"
+torch = {version = "*", index = "pypi", extras = ["cpu"]}
+transformers = {version = ">=4.38.0"}
 
 [requires]
 python_version = "3.12"
