@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2e6b8621eaa238f9d824e4b08c2cec6aadfd189968ef9ee50c04e68aa43164f6"
+            "sha256": "4d469a814d891a7a0d4fd5280f3b90d732f28ca789f04be61f9a1d4b0ca41209"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -398,11 +398,13 @@
             "version": "==0.7.6"
         },
         "chromadb": {
+            "extras": [
+                "cpu"
+            ],
             "hashes": [
                 "sha256:4851258489a3612b558488d98d09ae0fe0a28d5cad6bd1ba64b96fdc419dc0e5",
                 "sha256:c8f34c0b704b9108b04491480a36d42e894a960429f87c6516027b5481d59ed3"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.9'",
             "version": "==0.6.3"
         },

@@ -37,7 +37,7 @@ mkdocs-material = "*"
 mkdocs-macros-plugin = "*"
 mkdocs-awesome-pages-plugin = "*"
 anthropic = "*"
-chromadb = "*"
+chromadb = {version = "==0.6.3", extras = ["cpu"]}
 pytest = "*"
 ruff = "*"
 torch = ">=2.2.0"
