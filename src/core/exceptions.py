@@ -65,3 +65,9 @@ class SpotifyError(Exception):
     """Raised when Spotify API operations fail."""
 
     pass
+
+
+class GitHubError(Exception):
+    """Raised when WhatsApp operations fail"""
+
+    pass
