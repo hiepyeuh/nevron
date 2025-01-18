@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a3cf29913309534460cf7461fd5d247f3546b22077fda6c464e08b7907fa935c"
+            "sha256": "c8b3d9f16eb97bbeb9c4bac67dde73b46f7f49b644edba1649af5abb68420b17"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -4402,6 +4402,9 @@
             "version": "==0.21.0"
         },
         "torch": {
+            "extras": [
+                "cpu"
+            ],
             "hashes": [
                 "sha256:1f3b7fb3cf7ab97fae52161423f81be8c6b8afac8d9760823fd623994581e1a3",
                 "sha256:23d062bf70776a3d04dbe74db950db2a5245e1ba4f27208a87f0d743b0d06e86",
@@ -4421,7 +4424,7 @@
                 "sha256:de5b7d6740c4b636ef4db92be922f0edc425b65ed78c5076c43c42d362a45457",
                 "sha256:ed231a4b3a5952177fafb661213d690a72caaad97d5824dd4fc17ab9e15cec03"
             ],
-            "index": "https://download.pytorch.org/whl/cpu",
+            "index": "pypi",
             "markers": "python_full_version >= '3.8.0'",
             "version": "==2.5.1"
         },

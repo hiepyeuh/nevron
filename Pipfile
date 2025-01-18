@@ -49,7 +49,7 @@ pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = "*"
 ruff = "*"
-torch = {version = "*", index = "https://download.pytorch.org/whl/cpu"}
+torch = {version = "*", index = "pypi", extras = ["cpu"]}
 transformers = {version = ">=4.38.0"}
 
 [requires]
