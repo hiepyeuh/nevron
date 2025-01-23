@@ -13,3 +13,4 @@ transformers
 chromadb
 qdrant_client
 tweepy
+requests_html
