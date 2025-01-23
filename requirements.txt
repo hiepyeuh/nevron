@@ -12,3 +12,4 @@ anthropic
 transformers
 chromadb
 qdrant_client
+tweepy
