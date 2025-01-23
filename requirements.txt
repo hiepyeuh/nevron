@@ -11,3 +11,4 @@ openai
 anthropic
 transformers
 chromadb
+qdrant_client
